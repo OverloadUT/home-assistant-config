@@ -1,0 +1,637 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 5
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Los_Angeles
+
+  packages: !include_dir_named packages
+
+  customize:
+    media_player.greg_s_mac_mini:
+      friendly_name: Living Room Plex
+
+    media_player.home_theater:
+      emulated_hue: true
+
+    # ISY Binary Sensor definitions
+    binary_sensor.nursery_door:
+      sensor_class: opening
+    binary_sensor.garage_door:
+      sensor_class: opening
+    binary_sensor.front_door:
+      sensor_class: opening
+    binary_sensor.bedroom_door:
+      sensor_class: opening
+    binary_sensor.french_doors:
+      sensor_class: opening
+
+
+    binary_sensor.downstairs_bathroom_leak:
+      sensor_class: moisture
+    binary_sensor.kitchen_sink_leak:
+      sensor_class: moisture
+    binary_sensor.mainline_leak:
+      sensor_class: moisture
+    binary_sensor.washer_leak:
+      sensor_class: moisture
+
+    group.all_automations:
+      hidden: false
+    group.all_devices:
+      hidden: false
+    group.all_scripts:
+      hidden: false
+    group.all_lights:
+      hidden: false
+    group.all_switches:
+      hidden: false
+
+    switch.space_heater:
+      icon: mdi:fire
+      emulated_hue: true
+
+    input_boolean.sleep_time:
+      emulated_hue: true
+
+    switch.downstairs_bath_light_and_fan:
+      icon: mdi:fan
+    switch.master_bathroom_fan:
+      icon: mdi:fan
+
+    light.nursery_floor_lamp:
+      icon: mdi:lamp
+
+
+    # Hidden pseudo-devices
+    light.bedroom_remotelinc__a:
+      hidden: true
+    light.bedroom_remotelinc__b:
+      hidden: true
+    light.bedroom_remotelinc__c:
+      hidden: true
+    light.bedroom_remotelinc__d:
+      hidden: true
+    light.downstairs_hall_lights_slave:
+      hidden: true
+    light.entry_table_lamp:
+      hidden: true
+    light.family_room_floor_lamp:
+      hidden: true
+    light.hdmi_switcher_input_1:
+      hidden: true
+    light.hdmi_switcher_input_2:
+      hidden: true
+    light.lr_track_lights_front_slave:
+      hidden: true
+    light.mbr_keypad_a__corner_lamp:
+      hidden: true
+    light.mbr_keypad_b__bath_vanity:
+      hidden: true
+    light.mbr_keypad_c__dim_lights:
+      hidden: true
+    light.mbr_keypad_d__all_off:
+      hidden: true
+    light.mbr_keypad_main:
+      hidden: true
+    light.receiver_input_aux1:
+      hidden: true
+    light.receiver_input_aux2:
+      hidden: true
+    light.receiver_input_cd:
+      hidden: true
+    light.receiver_off:
+      hidden: true
+    light.receiver_on:
+      hidden: true
+    light.tv_down:
+      hidden: true
+    light.tv_menu:
+      hidden: true
+    light.tv_off:
+      hidden: true
+    light.tv_okay:
+      hidden: true
+    light.tv_on:
+      hidden: true
+    light.unknown_command:
+      hidden: true
+    light.upstairs_hall_lights_slave:
+      hidden: true
+    switch.front_doorclosed:
+      hidden: true
+    switch.front_dooropened:
+      hidden: true
+    switch.garage_interior_doorclosed:
+      hidden: true
+    switch.garage_interior_dooropened:
+      hidden: true
+    switch.leak_dbadry:
+      hidden: true
+    switch.leak_dbaheartbeat:
+      hidden: true
+    switch.leak_dbawet:
+      hidden: true
+    switch.leak_garage_mainlinedry:
+      hidden: true
+    switch.leak_garage_mainlineheartbea:
+      hidden: true
+    switch.leak_garage_mainlinewet:
+      hidden: true
+    switch.leak_garage_washerdry:
+      hidden: true
+    switch.leak_garage_washerheartbeat:
+      hidden: true
+    switch.leak_garage_washerwet:
+      hidden: true
+    switch.leak_kitchen_sinkdry:
+      hidden: true
+    switch.leak_kitchen_sinkheartbeat:
+      hidden: true
+    switch.leak_kitchen_sinkwet:
+      hidden: true
+    switch.mbr_doorclosed:
+      hidden: true
+    switch.mbr_dooropened:
+      hidden: true
+    switch.nursery_doorclosed:
+      hidden: true
+    switch.nursery_dooropened:
+      hidden: true
+    switch.nursery_doorheartbeat:
+      hidden: true
+    switch.receiver_input_cbl_sat:
+      hidden: true
+    switch.receiver_input_dvd:
+      hidden: true
+    switch.receiver_input_game_tv:
+      hidden: true
+    switch.receiver_input_vcr_dvd:
+      hidden: true
+    switch.receiver_mute:
+      hidden: true
+    switch.receiver_volume_down:
+      hidden: true
+    switch.receiver_volume_up:
+      hidden: true
+
+# logger:
+#     default: warn
+#     logs:
+#         homeassistant.components.proximity: debug
+
+# Enables the frontend
+frontend:
+
+
+http:
+  api_password: !secret http_api_password
+  base_url: !secret http_base_url
+  # server_port: !secret http_server_port
+  ssl_certificate: !secret http_ssl_certificate
+  ssl_key: !secret http_ssl_key
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+# conversation:
+
+zeroconf:
+
+ios:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+emulated_hue:
+  expose_by_default: false
+
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+device_tracker owntracks:
+  - platform: owntracks
+    max_gps_accuracy: 200
+    waypoints: True
+    waypoint_whitelist:
+      - greg
+
+# proximity:
+#   greg_home:
+#     zone: zone.home
+#     devices:
+#       device_tracker.greg_iphone
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   greg_work:
+#     zone: zone.work
+#     devices:
+#       device_tracker.greg_iphone
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   cailin_home:
+#     zone: zone.home
+#     devices:
+#       device_tracker.cailin_iphone
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   kim_home:
+#     zone: zone.home
+#     devices:
+#       device_tracker.kim_iphone
+#     tolerance: 50
+#     unit_of_measurement: mi
+
+sensor steam:
+  - platform: steam_online
+    api_key: !secret steam_api_key
+    accounts:
+      - 76561197970767347
+
+sensor google travel time:
+  - platform: google_travel_time
+    name: Travel Time to Work
+    api_key: !secret gmaps_api_key
+    origin: !secret address_home
+    destination: !secret address_work
+  - platform: google_travel_time
+    name: Travel Time to Home
+    api_key: !secret gmaps_api_key
+    origin: !secret address_work
+    destination: !secret address_home
+
+sensor dark sky:
+  - platform: darksky
+    api_key: !secret dark_sky_api_key
+    monitored_conditions:
+      # - summary
+      - icon
+      # - nearest_storm_distance
+      # - nearest_storm_bearing
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - temperature
+      - apparent_temperature
+      # - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      # - humidity
+      # - pressure
+      # - visibility
+      # - ozone
+      # - minutely_summary
+      # - hourly_summary
+      # - daily_summary
+      - temperature_max
+      - temperature_min
+      - apparent_temperature_max
+      - apparent_temperature_min
+      - precip_intensity_max
+
+# Text to speech
+tts:
+  platform: google
+
+# device_tracker router: !secret device_tracker_tomato
+
+isy994: !secret isy994
+
+sensor sonarr:
+  - platform: sonarr
+    api_key: !secret sonarr_api_key
+    host: !secret sonarr_host
+    port: !secret sonarr_port
+    monitored_conditions:
+      - upcoming
+      - diskspace
+
+notify:
+  - name: pushover
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
+  - name: slack
+    platform: slack
+    api_key: !secret slack_api_key
+    default_channel: '#gregdev'
+
+media_player:
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+
+###########################
+## HOME THEATER CONTROLS ##
+###########################
+media_player plex:
+  - platform: plex
+
+###########
+## Zones ##
+###########
+
+zone home:
+  name: Home
+  latitude: !secret zone_home_lat
+  longitude: !secret zone_home_long
+  radius: 200
+  icon: mdi:domain
+
+zone work:
+  name: Work
+  latitude: !secret zone_work_lat
+  longitude: !secret zone_work_long
+  radius: 200
+  icon: mdi:domain
+
+zone smhs:
+  name: SMHS
+  latitude: !secret zone_smhs_lat
+  longitude: !secret zone_smhs_long
+  radius: 400
+  icon: mdi:school
+
+
+############
+## Groups ##
+############
+
+## VIEWS ##
+group:
+  main:
+    name: Main
+    view: yes
+    entities:
+      - device_tracker.greg
+      - device_tracker.cailin
+      - device_tracker.kim
+      - group.residents
+      - group.travel_times
+      - group.living_room
+      - group.kitchen
+      - group.dining_room
+      - group.downstairs_bathroom
+      - group.entryway
+      - group.garage
+      - group.yard
+      - group.upstairs_hall
+      - group.nursery
+      - group.master_bedroom
+      - group.climate
+
+  home_theater:
+    name: Home Theater
+    view: yes
+    icon: mdi:theater
+    entities:
+      - switch.tv_power
+      - switch.receiver_power
+      - media_player.home_theater
+      - media_player.spotify
+
+  Weather:
+    view: yes
+    icon: mdi:weather-rainy
+    entities:
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_cloud_coverage
+      - sensor.dark_sky_daily_high_apparent_temperature
+      - sensor.dark_sky_daily_high_temperature
+      - sensor.dark_sky_daily_low_apparent_temperature
+      - sensor.dark_sky_daily_low_temperature
+      - sensor.dark_sky_daily_max_precip_intensity
+      - sensor.dark_sky_precip
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_wind_speed
+
+  System:
+    view: yes
+    icon: mdi:settings
+    entities:
+      - group.all_automations
+      - group.all_devices
+      - group.all_scripts
+      - group.all_lights
+      - group.all_switches
+      - group.all_input_selects
+      - group.all_sensors
+
+## ROOMS ##
+  living_room:
+    name: Living Room
+    entities:
+      - light.lr_track_lights_front
+      - light.lr_track_lights_rear
+  kitchen:
+    name: Kitchen
+    entities:
+      - light.kitchen_lights
+  dining_room:
+    name: Dining Room
+    entities:
+      - binary_sensor.french_doors
+  downstairs_bathroom:
+    name: Downstairs Bathroom
+    entities:
+      - switch.downstairs_bath_light_and_fan
+  entryway:
+    name: Entryway
+    entities:
+      - binary_sensor.front_door
+      - light.downstairs_hall_lights
+  garage:
+    name: Garage
+    entities:
+      - binary_sensor.garage_door
+      - light.garage_washer_light
+      - switch.garage_fluorescent_lights
+  upstairs_hall:
+    name: Upstairs Hall
+    entities:
+      - light.upstairs_hall_lights
+  nursery:
+    name: Finn's Room
+    entities:
+      - binary_sensor.nursery_door
+      - light.nursery_floor_lamp
+  master_bedroom:
+    name: Master Bedroom
+    entities:
+      - binary_sensor.bedroom_door
+      - light.bedroom_main_light
+      - light.master_bedroom_wall_lamps
+      - switch.mbr_underbed_led_strip
+      - group.master_bathroom
+  master_bathroom:
+    name: Master Bathroom
+    entities:
+      - light.master_bathroom_vanity_lights
+      - light.master_bathroom_can_lights
+      - light.master_bathroom_shower_light
+      - switch.master_bathroom_fan
+  yard:
+    name: Yard
+    entities:
+      - switch.mosquito_murderer
+
+## ROOM GROUPS ##
+  downstairs:
+    # view: yes
+    entities:
+      - group.living_room
+      - group.kitchen
+      - group.entryway
+
+## OTHER GROUPS ##
+  residents:
+    name: People
+    entities:
+      - device_tracker.greg
+      - device_tracker.cailin
+      - device_tracker.kim
+      
+  climate:
+    name: Climate Control
+    entities:
+      - switch.space_heater
+
+  leaks:
+    name: Leak Sensors
+    entities:
+      - binary_sensor.washer_leak
+      - binary_sensor.mainline_leak
+      - binary_sensor.downstairs_bathroom_leak
+      - binary_sensor.kitchen_sink_leak
+
+  travel_times:
+    name: Commute
+    entities:
+      - sensor.travel_time_to_home
+      - sensor.travel_time_to_work
+
+  automations:
+    name: Automations
+    entities:
+      - automation.movie_lights__play
+      - automation.movie_lights__pause
+      - automation.movie_lights__stop
+      - automation.turn_on_bedroom_lights_in_morning
+      - automation.welcome_greg_home_with_a_notification
+
+  all_input_selects:
+    name: All Input Selects
+    entities:
+      - input_select.residents_away
+      - input_select.home_theater_activities
+      - input_select.visitor_mode
+
+  all_sensors:
+    name: All Non-Weather Sensors
+    entities:
+      - sensor.house_mode
+
+
+#################
+## Automations ##
+#################
+
+automation notifications:
+  # ##################
+  # Notifications
+  # ##################
+  - alias: Welcome Greg home with a notification
+    trigger:
+      platform: zone
+      entity_id: device_tracker.greg_iphone
+      zone: zone.home
+      event: enter
+    action:
+      service: notify.pushover
+      data_template:
+        title: "Welcome home!"
+        message: "Welcome home, Greg."
+
+automation movie lights:
+  # ##################
+  # Movie Lights
+  # ##################
+  - alias: Movie Lights - Play
+    trigger:
+      platform: state
+      entity_id: media_player.greg_s_mac_mini
+      to: 'playing'
+    condition:
+      condition: template
+      value_template: "{{ trigger.to_state.attributes.media_content_type == 'movie' }}"
+    action:
+      service: homeassistant.turn_on
+      entity_id:
+        - switch.movie_lights
+
+  - alias: Movie Lights - Pause
+    trigger:
+      platform: state
+      entity_id: media_player.greg_s_mac_mini
+      from: 'playing'
+      to: 'paused'
+    condition:
+      condition: template
+      value_template: "{{ trigger.to_state.attributes.media_content_type == 'movie' }}"
+    action:
+      service: homeassistant.turn_on
+      entity_id:
+        - switch.pause_movie_lights
+
+  - alias: Movie Lights - Stop
+    trigger:
+      platform: state
+      entity_id: media_player.greg_s_mac_mini
+      to: 'stopped'
+    condition:
+      condition: and
+      conditions:
+        - condition: template
+          value_template: "{{ trigger.from_state.attributes.media_content_type == 'movie' }}"
+        - condition: template
+          value_template: "{{ switch.movie_lights.state == 'on' }}"
+    action:
+      service: homeassistant.turn_off
+      entity_id:
+        - switch.movie_lights
+
+automation bedroom wakeup:
+  # ##################
+  # Bedroom Wakeup
+  # ##################
+  - alias: Turn on Bedroom Lights in Morning
+    trigger:
+      platform: time
+      after: '07:50:00'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.bedroom_wakeup_lights

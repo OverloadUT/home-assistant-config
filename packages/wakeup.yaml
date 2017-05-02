@@ -1,0 +1,68 @@
+###########################
+## WAKEUP AUTOMATIONS    ##
+###########################
+
+input_boolean:
+  wakeup_sequence:
+    name: 'Wakeup Sequence'
+    initial: off
+    icon: mdi:sleep
+
+
+automation:
+  - alias: Wakeup Sequence Begin
+    trigger:
+      platform: state
+      entity_id: input_boolean.wakeup_sequence
+      to: 'on'
+    action:
+      - service: media_player.play_media
+        entity_id: media_player.spotify
+        data: 
+          media_content_id: 'spotify:track:6BJXuY0lY0EUtSDCgkYnqE' # The Devil's Walk, which starts out very quiet
+          media_content_type: 'music'
+      - service: media_player.select_source
+        entity_id: media_player.spotify
+        data:
+          source: "Bedroom Echo Dot"
+      - service: media_player.volume_set
+        entity_id: media_player.spotify
+        data: 
+          volume_level: 0.2
+      - service: media_player.play_media
+        entity_id: media_player.spotify
+        data: 
+          media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX0UrRvztWcAU' # Wake Up Happy
+          media_content_type: 'playlist'
+
+  - alias: Wakeup Sequence Deactivate
+    trigger:
+      platform: state
+      entity_id: input_boolean.wakeup_sequence
+      to: 'off'
+    action:
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+
+  - alias: Wakeup Sequence Music Stopped
+    trigger:
+      platform: state
+      entity_id: media_player.spotify
+      to: 'paused'
+      for:
+        seconds: 5
+    condition:
+      condition: state
+      entity_id: input_boolean.wakeup_sequence
+      state: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.wakeup_sequence
+
+  - alias: Wakeup at 7am
+    trigger:
+      platform: time
+      after: '7:00:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.wakeup_sequence

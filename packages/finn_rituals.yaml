@@ -1,0 +1,76 @@
+###########################
+##     FINN RITUALS      ##
+###########################
+
+input_boolean:
+  sleep_time:
+    name: 'Bed Time'
+    initial: off
+    icon: mdi:sleep
+
+automation:
+  - alias: Bed Time Activate
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_time
+      to: 'on'
+    action:
+      - service: media_player.play_media
+        entity_id: media_player.spotify
+        data: 
+          media_content_id: 'spotify:track:6BJXuY0lY0EUtSDCgkYnqE' # The Devil's Walk, which starts out very quiet
+          media_content_type: 'music'
+      - service: media_player.select_source
+        entity_id: media_player.spotify
+        data:
+          source: Finn's Room
+      - service: media_player.volume_set
+        entity_id: media_player.spotify
+        data: 
+          volume_level: 0.3
+      - service: media_player.play_media
+        entity_id: media_player.spotify
+        data: 
+          media_content_id: 'spotify:user:miresse:playlist:3WQplVEXqjC6YpP38yW9kC'
+          media_content_type: 'playlist'
+      - service: light.turn_on
+        entity_id: light.nursery_floor_lamp
+        data:
+          brightness: 115
+
+  - alias: Bed Time Deactivate
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_time
+      to: 'off'
+    action:
+      - service: media_player.select_source
+        entity_id: media_player.spotify
+        data:
+          source: 'Bedroom Echo Dot'
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+
+  - alias: Bed Time Lights off
+    trigger:
+      platform: state
+      entity_id: light.nursery_floor_lamp
+      to: 'off'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.sleep_time
+
+  - alias: Bed Time Music Stopped
+    trigger:
+      platform: state
+      entity_id: media_player.spotify
+      to: 'paused'
+      for:
+        seconds: 5
+    condition:
+      condition: state
+      entity_id: input_boolean.sleep_time
+      state: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.sleep_time
