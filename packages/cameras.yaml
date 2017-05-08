@@ -1,0 +1,9 @@
+###########################
+## CAMERAS               ##
+###########################
+
+camera:
+  - platform: amcrest
+    host: 192.168.0.50
+    username: !secret camera_amcrest_username
+    password: !secret camera_amcrest_password
