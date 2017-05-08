@@ -1,0 +1,216 @@
+###########################
+## FRONTEND GROUPS       ##
+###########################
+## VIEWS ##
+group:
+
+  ###############
+  ## MAIN VIEW ##
+  ###############
+  main:
+    name: Main
+    view: yes
+    entities:
+      - sensor.house_mode
+      - group.home_theater
+      - group.residents
+      - group.living_room
+      - group.kitchen
+      - group.dining_room
+      - group.downstairs_bathroom
+      - group.entryway
+      - group.garage
+      - group.yard
+      - group.upstairs_hall
+      - group.nursery
+      - group.master_bedroom
+      - group.climate
+
+  climate:
+    name: Climate Control
+    entities:
+      - switch.space_heater
+
+  home_theater:
+    name: Home Theater
+    view: yes
+    icon: mdi:theater
+    entities:
+      - switch.tv_power
+      - switch.receiver_power
+      - media_player.home_theater
+      - media_player.spotify
+      
+  residents:
+    name: People
+    entities:
+      - device_tracker.greg
+      - device_tracker.cailin
+      - device_tracker.kim
+
+  ##################
+  ## CAMERAS VIEW ##
+  ##################
+  cameras:
+    name: Cameras
+    view: yes
+    icon: mdi:camera
+    entities:
+      - camera.amcrest_camera
+      
+  ##################
+  ## SENSORS VIEW ##
+  ##################
+  sensors:
+    name: Sensors
+    view: yes
+    icon: mdi:speedometer
+    entities:
+      - group.living_room_sensor
+      - group.finns_room_sensor
+      - group.weather
+      - group.leaks
+
+  weather:
+    name: Weather
+    icon: mdi:weather-rainy
+    entities:
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_cloud_coverage
+      - sensor.dark_sky_daily_high_apparent_temperature
+      - sensor.dark_sky_daily_high_temperature
+      - sensor.dark_sky_daily_low_apparent_temperature
+      - sensor.dark_sky_daily_low_temperature
+      - sensor.dark_sky_daily_max_precip_intensity
+      - sensor.dark_sky_precip
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_wind_speed
+
+  living_room_sensor:
+    name: Living Room Sensors
+    entities:
+      - binary_sensor.aeotec_zw100_multisensor_6_sensor_2_0
+      - sensor.aeotec_zw100_multisensor_6_alarm_level_2_1
+      - sensor.aeotec_zw100_multisensor_6_alarm_type_2_0 
+      - sensor.aeotec_zw100_multisensor_6_burglar_2_10
+      - sensor.aeotec_zw100_multisensor_6_luminance_2_3
+      - sensor.aeotec_zw100_multisensor_6_relative_humidity_2_5
+      - sensor.aeotec_zw100_multisensor_6_sourcenodeid_2_2
+      - sensor.aeotec_zw100_multisensor_6_temperature_2_1
+      - sensor.aeotec_zw100_multisensor_6_ultraviolet_2_27
+
+  finns_room_sensor:
+    name: Finn's Room Sensors
+    entities:
+      - binary_sensor.aeotec_zw100_multisensor_6_sensor_4_0
+      - sensor.aeotec_zw100_multisensor_6_alarm_level_4_1
+      - sensor.aeotec_zw100_multisensor_6_alarm_type_4_0 
+      - sensor.aeotec_zw100_multisensor_6_burglar_4_10
+      - sensor.aeotec_zw100_multisensor_6_luminance_4_3
+      - sensor.aeotec_zw100_multisensor_6_relative_humidity_4_5
+      - sensor.aeotec_zw100_multisensor_6_sourcenodeid_4_2
+      - sensor.aeotec_zw100_multisensor_6_temperature_4_1
+      - sensor.aeotec_zw100_multisensor_6_ultraviolet_4_27
+
+  leaks:
+    name: Leak Sensors
+    entities:
+      - binary_sensor.washer_leak
+      - binary_sensor.mainline_leak
+      - binary_sensor.downstairs_bathroom_leak
+      - binary_sensor.kitchen_sink_leak
+
+  #################
+  ## PEOPLE VIEW ##
+  #################
+  people:
+    name: People
+    entities:
+      - group.residents
+      - group.travel_times
+
+  travel_times:
+    name: Commute
+    entities:
+      - sensor.travel_time_to_home
+      - sensor.travel_time_to_work
+
+## ROOMS ##
+  living_room:
+    name: Living Room
+    entities:
+      - light.lr_track_lights_front
+      - light.lr_track_lights_rear
+  kitchen:
+    name: Kitchen
+    entities:
+      - light.kitchen_lights
+  dining_room:
+    name: Dining Room
+    entities:
+      - binary_sensor.french_doors
+  downstairs_bathroom:
+    name: Downstairs Bathroom
+    entities:
+      - switch.downstairs_bath_light_and_fan
+  entryway:
+    name: Entryway
+    entities:
+      - binary_sensor.front_door
+      - light.downstairs_hall_lights
+  garage:
+    name: Garage
+    entities:
+      - binary_sensor.garage_door
+      - light.garage_washer_light
+      - switch.garage_fluorescent_lights
+  upstairs_hall:
+    name: Upstairs Hall
+    entities:
+      - light.upstairs_hall_lights
+  nursery:
+    name: Finn's Room
+    entities:
+      - binary_sensor.nursery_door
+      - light.nursery_floor_lamp
+  master_bedroom:
+    name: Master Bedroom
+    entities:
+      - binary_sensor.bedroom_door
+      - light.bedroom_main_light
+      - light.master_bedroom_wall_lamps
+      - switch.mbr_underbed_led_strip
+      - group.master_bathroom
+  master_bathroom:
+    name: Master Bathroom
+    entities:
+      - light.master_bathroom_vanity_lights
+      - light.master_bathroom_can_lights
+      - light.master_bathroom_shower_light
+      - switch.master_bathroom_fan
+  yard:
+    name: Yard
+    entities:
+      - switch.mosquito_murderer
+
+## ROOM GROUPS ##
+  downstairs:
+    # view: yes
+    entities:
+      - group.living_room
+      - group.kitchen
+      - group.entryway
+
+## OTHER GROUPS ##
+
+  automations:
+    name: Automations
+    entities:
+      - automation.movie_lights__play
+      - automation.movie_lights__pause
+      - automation.movie_lights__stop
+      - automation.turn_on_bedroom_lights_in_morning
+      - automation.welcome_greg_home_with_a_notification
