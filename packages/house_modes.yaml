@@ -4,44 +4,37 @@ sensor:
       house_mode:
         friendly_name: 'House Mode'
         value_template: >
-          {% if is_state('input_select.visitor_mode', 'True') %}
+          {% if is_state('input_boolean.visitor_mode', 'on') %}
             visitor
-          {% elif is_state('input_select.residents_away', 'True') %}
+          {% elif is_state('input_boolean.residents_away', 'on') %}
             away
           {% else %}
             home
           {% endif %}
 
-input_select:
+input_boolean:
   residents_away:
     name: Residents Away
-    options:
-      - on
-      - off
     initial: off
     icon: mdi:home
 
   visitor_mode:
     name: Visitor Mode
-    options:
-      - on
-      - off
     initial: off
     icon: mdi:account-multiple
+
 
 script:
   enable_residents_away:
     alias: Enable Away Mode
     sequence:
-      - service: input_select.select_option
-        entity_id: input_select.residents_away
-        data:
-          option: on
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.residents_away
       - event: LOGBOOK_ENTRY
         event_data:
           name: Residents
           message: have all left the house
-          entity_id: input_select.residents_away
+          entity_id: input_boolean.residents_away
           domain: automation
 
 automation:
@@ -53,10 +46,8 @@ automation:
       for:
         minutes: 10
     action:
-      - service: input_select.select_option
-        entity_id: input_select.residents_away
-        data:
-          option: on
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.residents_away
 
   - alias: A resident has returned home
     trigger:
@@ -66,59 +57,6 @@ automation:
       for:
         minutes: 1
     action:
-      - service: input_select.select_option
-        entity_id: input_select.residents_away
-        data:
-          option: off
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.residents_away
 
-  # - alias: Change house to away mode
-  #   trigger:
-  #     platform: state
-  #     entity_id: input_select.residents_away
-  #     to: 'True'
-  #   condition:
-  #     condition: state
-  #     entity_id: input_select.visitor_mode
-  #     state: off
-  #   action:
-  #     - service: input_select.select_option
-  #       entity_id: input_select.house_mode
-  #       data:
-  #         option: away
-
-  # - alias: Visitor mode enabled
-  #   trigger:
-  #     platform: state
-  #     entity_id: input_select.visitor_mode
-  #     to: 'True'
-  #   action:
-  #     - service: input_select.select_option
-  #       entity_id: input_select.house_mode
-  #       data:
-  #         option: visitors
-
-  # - alias: Visitor mode disabled
-  #   trigger:
-  #     platform: state
-  #     entity_id: input_select.visitor_mode
-  #     to: 'False'
-  #   action:
-  #     - service: input_select.select_option
-  #       entity_id: input_select.house_mode
-  #       data:
-  #         option: visitors
-
-  # - alias: Change house to home mode
-  #   trigger:
-  #     platform: state
-  #     entity_id: input_select.residents_away
-  #     to: off
-  #   condition:
-  #     condition: state
-  #     entity_id: input_select.visitor_mode
-  #     state: off
-  #   action:
-  #     - service: input_select.select_option
-  #       entity_id: input_select.house_mode
-  #       data:
-  #         option: home
