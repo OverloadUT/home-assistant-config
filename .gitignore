@@ -1,0 +1,21 @@
+# Home Assistant Config
+deps/
+tts/
+ozw_config/
+
+secrets\.yaml
+plex\.conf
+known_devices\.yaml
+ios\.conf
+emulated_hue_ids\.json
+OZW_Log\.txt
+pyozw\.sqlite
+zwscene.xml
+
+zwcfg_*
+*.list
+*.db
+*.log
+*.db-shm
+*.db-wal
+.*
