@@ -1,0 +1,24 @@
+#################################
+## HISTORY, RECORDING, LOGBOOK ##
+#################################
+
+# Recorder for the history and logbook
+recorder:
+  db_url: !secret recorder_db_url
+  exclude:
+    entities:
+      - sensor.sun
+
+# Enables support for tracking state changes over time.
+history:
+  exclude:
+    domains:
+      - automation
+      - group
+
+# View all events in a logbook
+logbook:
+  exclude:
+    domains:
+      - sensor
+      - group
