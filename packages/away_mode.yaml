@@ -12,4 +12,4 @@ automation:
       to: away
     action:
       - service: homeassistant.turn_off
-        entity_id: group.lights
+        entity_id: group.lights_indoor

@@ -229,7 +229,7 @@ group:
       - automation.turn_on_bedroom_lights_in_morning
       - automation.welcome_greg_home_with_a_notification
 
-  group.lights_indoor:
+  lights_indoor:
     name: Indoor Lights
     entities:
       - light.lr_track_lights_front
@@ -249,7 +249,7 @@ group:
       - light.master_bathroom_shower_light
       - switch.master_bathroom_fan
 
-  group.doors:
+  doors:
     name: Doors
     entities:
       - binary_sensor.bedroom_door
