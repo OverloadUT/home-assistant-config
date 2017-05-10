@@ -46,4 +46,20 @@ homeassistant:
       friendly_name: Finn's Room Temp
     sensor.aeotec_zw100_multisensor_6_ultraviolet_4_27:
       friendly_name: Finn's Room UV
-    
+
+    sensor.aeotec_zw096_smart_switch_6_current_3_20:
+      friendly_name: Water Boiler Current
+      hidden: true
+    sensor.aeotec_zw096_smart_switch_6_energy_3_0:
+      friendly_name: Water Boiler Energy
+    sensor.aeotec_zw096_smart_switch_6_power_3_8:
+      friendly_name: Water Boiler Power
+    sensor.aeotec_zw096_smart_switch_6_previous_reading_3_1:
+      friendly_name: Water Boiler Previous Reading
+    sensor.aeotec_zw096_smart_switch_6_voltage_3_16:
+      friendly_name: Water Boiler Voltage
+      hidden: true
+
+    switch.aeotec_zw096_smart_switch_6_switch_3_0:
+      friendly_name: Water Boiler
+      icon: mdi:coffee

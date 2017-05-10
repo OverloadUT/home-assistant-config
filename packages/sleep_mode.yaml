@@ -1,0 +1,24 @@
+## Away Mode automations
+## 
+## Automations that control when Away Mode is active are all in `house_modes.yaml`. This package is just for things that are triggered BY away mode.
+##
+## Turns off all appropriate devices when the house enters away mode
+
+automation:
+  - alias: Turn off water boiler at night
+    trigger:
+      platform: state
+      entity_id: sensor.house_mode
+      to: sleep
+    action:
+      - service: homeassistant.turn_off
+        entity_id: switch.aeotec_zw096_smart_switch_6_switch_3_0 # Water Boiler
+
+  - alias: Turn on water boiler in morning
+    trigger:
+      platform: state
+      entity_id: sensor.house_mode
+      from: sleep
+    action:
+      - service: homeassistant.turn_on
+        entity_id: switch.aeotec_zw096_smart_switch_6_switch_3_0 # Water Boiler

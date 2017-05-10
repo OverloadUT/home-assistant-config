@@ -1,7 +1,6 @@
 ###########################
-## FRONTEND GROUPS       ##
+## GROUPS                ##
 ###########################
-## VIEWS ##
 group:
 
   ###############
@@ -70,6 +69,7 @@ group:
       - group.finns_room_sensor
       - group.weather
       - group.leaks
+      - group.water_boiler_sensor
 
   weather:
     name: Weather
@@ -123,6 +123,15 @@ group:
       - binary_sensor.downstairs_bathroom_leak
       - binary_sensor.kitchen_sink_leak
 
+  water_boiler_sensor:
+    name: Water Boiler Sensors
+    entities:
+      - sensor.aeotec_zw096_smart_switch_6_current_3_20
+      - sensor.aeotec_zw096_smart_switch_6_energy_3_0
+      - sensor.aeotec_zw096_smart_switch_6_power_3_8
+      - sensor.aeotec_zw096_smart_switch_6_previous_reading_3_1
+      - sensor.aeotec_zw096_smart_switch_6_voltage_3_16
+
   #################
   ## PEOPLE VIEW ##
   #################
@@ -138,7 +147,9 @@ group:
       - sensor.travel_time_to_home
       - sensor.travel_time_to_work
 
-## ROOMS ##
+  #################
+  ## ROOMS       ##
+  #################
   living_room:
     name: Living Room
     entities:
@@ -148,6 +159,7 @@ group:
     name: Kitchen
     entities:
       - light.kitchen_lights
+      - switch.aeotec_zw096_smart_switch_6_switch_3_0
   dining_room:
     name: Dining Room
     entities:
@@ -214,3 +226,31 @@ group:
       - automation.movie_lights__stop
       - automation.turn_on_bedroom_lights_in_morning
       - automation.welcome_greg_home_with_a_notification
+
+  group.lights_indoor:
+    name: Indoor Lights
+    entities:
+      - light.lr_track_lights_front
+      - light.lr_track_lights_rear
+      - light.kitchen_lights
+      - switch.downstairs_bath_light_and_fan
+      - light.downstairs_hall_lights
+      - light.garage_washer_light
+      - switch.garage_fluorescent_lights
+      - light.upstairs_hall_lights
+      - light.nursery_floor_lamp
+      - light.bedroom_main_light
+      - light.master_bedroom_wall_lamps
+      - switch.mbr_underbed_led_strip
+      - light.master_bathroom_vanity_lights
+      - light.master_bathroom_can_lights
+      - light.master_bathroom_shower_light
+      - switch.master_bathroom_fan
+
+  group.doors:
+    name: Doors
+    entities:
+      - binary_sensor.bedroom_door
+      - binary_sensor.nursery_door
+      - binary_sensor.garage_door
+      - binary_sensor.french_doors

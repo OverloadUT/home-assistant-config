@@ -4,7 +4,9 @@ sensor:
       house_mode:
         friendly_name: 'House Mode'
         value_template: >
-          {% if is_state('input_boolean.visitor_mode', 'on') %}
+          {% if is_state('input_boolean.sleep_detected', 'on') %}
+            sleep
+          {% elif is_state('input_boolean.visitor_mode', 'on') %}
             visitor
           {% elif is_state('input_boolean.residents_away', 'on') %}
             away
@@ -23,6 +25,10 @@ input_boolean:
     initial: off
     icon: mdi:account-multiple
 
+  sleep_detected:
+    name: Sleep Detected
+    initial: off
+    icon: mdi:sleep
 
 script:
   enable_residents_away:
@@ -38,6 +44,9 @@ script:
           domain: automation
 
 automation:
+  ###
+  # Away Mode triggers
+  ###
   - alias: All residents have left the house
     trigger:
       platform: state
@@ -60,3 +69,48 @@ automation:
       - service: input_boolean.turn_off
         entity_id: input_boolean.residents_away
 
+  ###
+  # Sleep Mode triggers
+  ###
+  - alias: The house appears to be asleep
+    trigger:
+      platform: state
+      entity_id: group.lights_indoor
+      to: 'off'
+      for:
+        minutes: 10
+    condition:
+      condition: time
+      after: '22:00:00'
+      before: '08:00:00'
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.sleep_detected
+
+  - alias: Turn off sleep mode when lights are turned on
+    trigger:
+      platform: state
+      entity_id: group.lights_indoor
+      to: 'on'
+      for:
+        minutes: 5
+    condition:
+      condition: state
+      entity_id: input_boolean.sleep_detected
+      state: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.sleep_detected
+
+  - alias: Turn off sleep mode 1 hour after sunrise
+    trigger:
+      platform: sun
+      event: sunrise
+      offset: '01:00:00'
+    condition:
+      condition: state
+      entity_id: input_boolean.sleep_detected
+      state: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.sleep_detected
