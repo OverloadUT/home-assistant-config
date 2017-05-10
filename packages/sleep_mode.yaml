@@ -1,8 +1,6 @@
-## Away Mode automations
+## Sleep Mode automations
 ## 
-## Automations that control when Away Mode is active are all in `house_modes.yaml`. This package is just for things that are triggered BY away mode.
-##
-## Turns off all appropriate devices when the house enters away mode
+## Automations that control when Sleep Mode is active are all in `house_modes.yaml`. This package is just for things that are triggered BY sleep mode.
 
 automation:
   - alias: Turn off water boiler at night
