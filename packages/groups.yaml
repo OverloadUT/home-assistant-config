@@ -28,6 +28,8 @@ group:
   climate:
     name: Climate Control
     entities:
+      - sensor.living_room_temp_diff
+      - sensor.nursery_temp_diff
       - switch.space_heater
 
   home_theater:

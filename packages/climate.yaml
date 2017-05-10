@@ -1,0 +1,15 @@
+###########################
+## CLIMATE               ##
+###########################
+
+sensor:
+  - platform: template
+    sensors:
+      living_room_temp_diff:
+        value_template: '{{ float(states.sensor.aeotec_zw100_multisensor_6_temperature_2_1.state) - float(states.sensor.dark_sky_temperature.state) }}'
+        friendly_name: 'Indoor Temp Diff'
+        unit_of_measurement: '°F'
+      nursery_temp_diff:
+        value_template: '{{ float(states.sensor.aeotec_zw100_multisensor_6_temperature_4_1.state) - float(states.sensor.dark_sky_temperature.state) }}'
+        friendly_name: 'Nursery Temp Diff'
+        unit_of_measurement: '°F'
