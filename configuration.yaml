@@ -339,31 +339,6 @@ media_player:
 media_player plex:
   - platform: plex
 
-###########
-## Zones ##
-###########
-
-zone home:
-  name: Home
-  latitude: !secret zone_home_lat
-  longitude: !secret zone_home_long
-  radius: 200
-  icon: mdi:domain
-
-zone work:
-  name: Work
-  latitude: !secret zone_work_lat
-  longitude: !secret zone_work_long
-  radius: 200
-  icon: mdi:domain
-
-zone smhs:
-  name: SMHS
-  latitude: !secret zone_smhs_lat
-  longitude: !secret zone_smhs_long
-  radius: 400
-  icon: mdi:school
-
 #################
 ## Automations ##
 #################

@@ -1,0 +1,22 @@
+###########
+## Zones ##
+###########
+
+zone:
+  - name: Home
+    latitude: !secret zone_home_lat
+    longitude: !secret zone_home_long
+    radius: 300
+    icon: mdi:domain
+
+  - name: Work
+    latitude: !secret zone_work_lat
+    longitude: !secret zone_work_long
+    radius: 300
+    icon: mdi:domain
+
+  - name: SMHS
+    latitude: !secret zone_smhs_lat
+    longitude: !secret zone_smhs_long
+    radius: 600
+    icon: mdi:school
