@@ -1,0 +1,11 @@
+## Hass System Monitoring
+## 
+
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: disk_free
+        arg: /
+      - type: memory_free
+      - type: load_5m
+      - type: last_boot

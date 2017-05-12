@@ -72,6 +72,7 @@ group:
       - group.weather
       - group.leaks
       - group.water_boiler_sensor
+      - group.system_monitor
 
   weather:
     name: Weather
@@ -133,6 +134,14 @@ group:
       - sensor.aeotec_zw096_smart_switch_6_power_3_8
       - sensor.aeotec_zw096_smart_switch_6_previous_reading_3_1
       - sensor.aeotec_zw096_smart_switch_6_voltage_3_16
+
+  system_monitor:
+    name: System Monitor
+    entities:
+      - sensor.disk_free_
+      - sensor.ram_free
+      - sensor.average_load_5m
+      - sensor.last_boot
 
   #################
   ## PEOPLE VIEW ##
