@@ -72,6 +72,7 @@ group:
       - group.weather
       - group.leaks
       - group.water_boiler_sensor
+      - group.garage_sensors
       - group.system_monitor
 
   weather:
@@ -134,6 +135,15 @@ group:
       - sensor.aeotec_zw096_smart_switch_6_power_3_8
       - sensor.aeotec_zw096_smart_switch_6_previous_reading_3_1
       - sensor.aeotec_zw096_smart_switch_6_voltage_3_16
+
+  garage_sensors:
+    name: Garage Sensors
+    entities:
+      - sensor.aeotec_zw096_smart_switch_6_current_5_20
+      - sensor.aeotec_zw096_smart_switch_6_energy_5_0
+      - sensor.aeotec_zw096_smart_switch_6_power_5_8
+      - sensor.aeotec_zw096_smart_switch_6_previous_reading_5_1
+      - sensor.aeotec_zw096_smart_switch_6_voltage_5_16
 
   system_monitor:
     name: System Monitor

@@ -63,3 +63,20 @@ homeassistant:
     switch.aeotec_zw096_smart_switch_6_switch_3_0:
       friendly_name: Water Boiler
       icon: mdi:coffee
+
+    sensor.aeotec_zw096_smart_switch_6_current_5_20:
+      friendly_name: Washer Current
+    sensor.aeotec_zw096_smart_switch_6_energy_5_0:
+      friendly_name: Washer Energy
+    sensor.aeotec_zw096_smart_switch_6_power_5_8:
+      friendly_name: Washer Power
+    sensor.aeotec_zw096_smart_switch_6_previous_reading_5_1:
+      friendly_name: Washer Previous Reading
+    sensor.aeotec_zw096_smart_switch_6_voltage_5_16:
+      friendly_name: Washer Voltage
+      hidden: true
+
+    switch.aeotec_zw096_smart_switch_6_switch_5_0:
+      friendly_name: Washer
+      icon: mdi:washing-machine
+      hidden: true
