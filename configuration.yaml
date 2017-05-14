@@ -14,9 +14,6 @@ homeassistant:
   packages: !include_dir_named packages
 
   customize:
-    sensor.average_load_5m:
-      unit_of_measurement: '%'
-
     media_player.greg_s_mac_mini:
       friendly_name: Living Room Plex
 

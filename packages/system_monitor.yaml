@@ -9,3 +9,15 @@ sensor:
       - type: memory_free
       - type: load_5m
       - type: last_boot
+
+  - platform: template
+    sensors:
+      average_load_5m_percent:
+        value_template: '{{ states.sensor.average_load_5m.state | multiply(100) }}'
+        friendly_name: '5m Average Load'
+        unit_of_measurement: '%'
+
+homeassistant:
+  customize:
+    sensor.average_load_5m:
+      hidden: true

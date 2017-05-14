@@ -150,7 +150,7 @@ group:
     entities:
       - sensor.disk_free_
       - sensor.ram_free
-      - sensor.average_load_5m
+      - sensor.average_load_5m_percent
       - sensor.last_boot
 
   #################
