@@ -55,7 +55,6 @@ homeassistant:
 
     switch.space_heater:
       icon: mdi:fire
-      emulated_hue: true
 
     input_boolean.sleep_time:
       emulated_hue: true
@@ -394,7 +393,7 @@ automation movie lights:
     trigger:
       platform: state
       entity_id: media_player.greg_s_mac_mini
-      to: 'stopped'
+      to: 'idle'
     condition:
       condition: and
       conditions:
@@ -414,7 +413,7 @@ automation bedroom wakeup:
   - alias: Turn on Bedroom Lights in Morning
     trigger:
       platform: time
-      after: '07:50:00'
+      after: '07:10:00'
     action:
       - service: switch.turn_on
         entity_id: switch.bedroom_wakeup_lights
