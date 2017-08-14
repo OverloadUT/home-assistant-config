@@ -7,7 +7,7 @@ recorder:
   db_url: !secret recorder_db_url
   exclude:
     entities:
-      - sensor.sun
+      - sensor.water_boiler_switch_power
 
 # Enables support for tracking state changes over time.
 history:

@@ -1,0 +1,7 @@
+  name: Demo Floorplan
+  image: /local/custom_ui/floorplan/floorplan.svg
+  stylesheet: /local/custom_ui/floorplan/floorplan.css
+  groups:
+  - name: Lights
+    entities:
+       - light.kitchen_lights

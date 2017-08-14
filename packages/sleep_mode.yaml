@@ -10,7 +10,7 @@ automation:
       to: sleep
     action:
       - service: homeassistant.turn_off
-        entity_id: switch.aeotec_zw096_smart_switch_6_switch_3_0 # Water Boiler
+        entity_id: switch.water_boiler_switch_switch # Water Boiler
 
   - alias: Turn on water boiler in morning
     trigger:
@@ -19,4 +19,4 @@ automation:
       from: sleep
     action:
       - service: homeassistant.turn_on
-        entity_id: switch.aeotec_zw096_smart_switch_6_switch_3_0 # Water Boiler
+        entity_id: switch.water_boiler_switch_switch # Water Boiler

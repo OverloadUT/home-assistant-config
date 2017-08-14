@@ -1,0 +1,53 @@
+# Presense Detection
+#
+# All automations and pseudo sensors associated with detecting if individual people are home, away, heading home, etc
+# The house-wide away mode logic is handled in `house_modes.yaml`
+
+# proximity:
+#   greg_home:
+#     zone: zone.home
+#     devices: device_tracker.greg
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   home:
+#     zone: zone.home
+#     devices: device_tracker.greg
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   greg_work:
+#     zone: zone.work
+#     devices: device_tracker.greg
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   cailin_home:
+#     zone: zone.home
+#     devices: device_tracker.cailin
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   kim_home:
+#     zone: zone.home
+#     devices: device_tracker.kim
+#     tolerance: 50
+#     unit_of_measurement: mi
+#   anybody_home:
+#     zone: zone.home
+#     devices:
+#       - device_tracker.greg
+#       - device_tracker.cailin
+#       - device_tracker.kim
+#     tolerance: 50
+#     unit_of_measurement: mi
+
+
+sensor:
+  - platform: google_travel_time
+    name: Travel Time to Work
+    api_key: !secret gmaps_api_key
+    origin: !secret address_home
+    destination: !secret address_work
+
+  - platform: google_travel_time
+    name: Travel Time to Home
+    api_key: !secret gmaps_api_key
+    origin: !secret address_work
+    destination: !secret address_home

@@ -57,7 +57,7 @@ group:
     view: yes
     icon: mdi:camera
     entities:
-      - camera.amcrest_camera
+      - camera.finns_room
       
   ##################
   ## SENSORS VIEW ##
@@ -69,6 +69,7 @@ group:
     entities:
       - group.living_room_sensor
       - group.finns_room_sensor
+      - group.bedroom_sensor
       - group.weather
       - group.leaks
       - group.water_boiler_sensor
@@ -96,28 +97,41 @@ group:
   living_room_sensor:
     name: Living Room Sensors
     entities:
-      - binary_sensor.aeotec_zw100_multisensor_6_sensor_2_0
-      - sensor.aeotec_zw100_multisensor_6_alarm_level_2_1
-      - sensor.aeotec_zw100_multisensor_6_alarm_type_2_0 
-      - sensor.aeotec_zw100_multisensor_6_burglar_2_10
-      - sensor.aeotec_zw100_multisensor_6_luminance_2_3
-      - sensor.aeotec_zw100_multisensor_6_relative_humidity_2_5
-      - sensor.aeotec_zw100_multisensor_6_sourcenodeid_2_2
-      - sensor.aeotec_zw100_multisensor_6_temperature_2_1
-      - sensor.aeotec_zw100_multisensor_6_ultraviolet_2_27
+      - binary_sensor.living_room_multisensor_sensor
+      - sensor.living_room_multisensor_alarm_level
+      - sensor.living_room_multisensor_alarm_type 
+      - sensor.living_room_multisensor_burglar
+      - sensor.living_room_multisensor_luminance
+      - sensor.living_room_multisensor_relative_humidity
+      - sensor.living_room_multisensor_sourcenodeid
+      - sensor.living_room_multisensor_temperature
+      - sensor.living_room_multisensor_ultraviolet
 
   finns_room_sensor:
     name: Finn's Room Sensors
     entities:
-      - binary_sensor.aeotec_zw100_multisensor_6_sensor_4_0
-      - sensor.aeotec_zw100_multisensor_6_alarm_level_4_1
-      - sensor.aeotec_zw100_multisensor_6_alarm_type_4_0 
-      - sensor.aeotec_zw100_multisensor_6_burglar_4_10
-      - sensor.aeotec_zw100_multisensor_6_luminance_4_3
-      - sensor.aeotec_zw100_multisensor_6_relative_humidity_4_5
-      - sensor.aeotec_zw100_multisensor_6_sourcenodeid_4_2
-      - sensor.aeotec_zw100_multisensor_6_temperature_4_1
-      - sensor.aeotec_zw100_multisensor_6_ultraviolet_4_27
+      - binary_sensor.finns_room_multisensor_sensor
+      - sensor.finns_room_multisensor_alarm_level
+      - sensor.finns_room_multisensor_alarm_type 
+      - sensor.finns_room_multisensor_burglar
+      - sensor.finns_room_multisensor_luminance
+      - sensor.finns_room_multisensor_relative_humidity
+      - sensor.finns_room_multisensor_sourcenodeid
+      - sensor.finns_room_multisensor_temperature
+      - sensor.finns_room_multisensor_ultraviolet
+
+  bedroom_sensor:
+    name: Bedroom Sensors
+    entities:
+      - binary_sensor.bedroom_multisensor_sensor
+      - sensor.bedroom_multisensor_alarm_level
+      - sensor.bedroom_multisensor_alarm_type 
+      - sensor.bedroom_multisensor_burglar
+      - sensor.bedroom_multisensor_luminance
+      - sensor.bedroom_multisensor_relative_humidity
+      - sensor.bedroom_multisensor_sourcenodeid
+      - sensor.bedroom_multisensor_temperature
+      - sensor.bedroom_multisensor_ultraviolet
 
   leaks:
     name: Leak Sensors
@@ -130,20 +144,21 @@ group:
   water_boiler_sensor:
     name: Water Boiler Sensors
     entities:
-      - sensor.aeotec_zw096_smart_switch_6_current_3_20
-      - sensor.aeotec_zw096_smart_switch_6_energy_3_0
-      - sensor.aeotec_zw096_smart_switch_6_power_3_8
-      - sensor.aeotec_zw096_smart_switch_6_previous_reading_3_1
-      - sensor.aeotec_zw096_smart_switch_6_voltage_3_16
+      - sensor.water_boiler_switch_current
+      - sensor.water_boiler_switch_energy
+      - sensor.water_boiler_switch_power
+      - sensor.water_boiler_switch_previous_reading
+      - sensor.water_boiler_switch_voltage
 
   garage_sensors:
     name: Garage Sensors
     entities:
-      - sensor.aeotec_zw096_smart_switch_6_current_5_20
-      - sensor.aeotec_zw096_smart_switch_6_energy_5_0
-      - sensor.aeotec_zw096_smart_switch_6_power_5_8
-      - sensor.aeotec_zw096_smart_switch_6_previous_reading_5_1
-      - sensor.aeotec_zw096_smart_switch_6_voltage_5_16
+      - sensor.washer_switch_current
+      - sensor.washer_switch_energy
+      - sensor.washer_switch_power
+      - sensor.washer_switch_previous_reading
+      - sensor.washer_switch_voltage
+      - binary_sensor.washer
 
   system_monitor:
     name: System Monitor
@@ -180,7 +195,7 @@ group:
     name: Kitchen
     entities:
       - light.kitchen_lights
-      - switch.aeotec_zw096_smart_switch_6_switch_3_0
+      - switch.water_boiler_switch_switch
   dining_room:
     name: Dining Room
     entities:
@@ -200,6 +215,7 @@ group:
       - binary_sensor.garage_door
       - light.garage_washer_light
       - switch.garage_fluorescent_lights
+      - binary_sensor.washer
   upstairs_hall:
     name: Upstairs Hall
     entities:

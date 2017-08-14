@@ -1,0 +1,42 @@
+###########################
+## NOTIFIERS             ##
+###########################
+
+notify:
+  - name: pushover
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
+
+  - name: slack
+    platform: slack
+    api_key: !secret slack_api_key
+    default_channel: '#gregdev'
+
+  - name: HTML5
+    platform: html5
+    gcm_api_key: !secret html5_gcm_api_key
+    gcm_sender_id: !secret html5_gcm_sender_id
+
+  - name: Emergency
+    platform: group
+    services:
+      - service: html5
+      - service: ios_cailin
+      - service: ios_greg
+      - service: ios_kim
+
+  - name: Greg
+    platform: group
+    services:
+      - service: html5
+        data:
+          target: ["Rhea", "Greg Work Laptop"]
+      - service: ios_greg
+
+  - name: Laundry
+    platform: group
+    services:
+      - service: ios_cailin
+      - service: ios_greg
+      - service: ios_kim

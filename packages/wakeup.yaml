@@ -62,7 +62,7 @@ automation:
   - alias: Wakeup at 7am
     trigger:
       platform: time
-      after: '7:00:00'
+      at: '7:00:00'
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.wakeup_sequence
