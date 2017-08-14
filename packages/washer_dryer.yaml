@@ -1,0 +1,27 @@
+## Washer and Dryer notifications
+## 
+
+binary_sensor:
+  - platform: threshold
+    name: Washer
+    threshold: 0
+    type: upper
+    entity_id: sensor.washer_switch_power
+    off_delay:
+        minutes: 5
+
+homeassistant:
+  customize:
+    binary_sensor.washer:
+      icon: mdi:washing-machine
+
+automation:
+  - alias: Notify when washer load is done
+    trigger:
+      platform: state
+      entity_id: binary_sensor.washer
+      to: 'off'
+    action:
+      - service: notify.laundry
+        data:
+          message: The washing machine has finished its load!
