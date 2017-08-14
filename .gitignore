@@ -11,6 +11,11 @@ emulated_hue_ids\.json
 OZW_Log\.txt
 pyozw\.sqlite
 zwscene.xml
+sabnzbd\.conf
+panels/floorplan\.html
+www/custom_ui/floorplan/
+www/custom_ui/state-card-floorplan\.html
+html5_push_registrations\.conf
 
 zwcfg_*
 *.list
@@ -19,3 +24,6 @@ zwcfg_*
 *.db-shm
 *.db-wal
 .*
+
+
+**/__pycache__/
