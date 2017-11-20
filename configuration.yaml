@@ -17,9 +17,6 @@ homeassistant:
     media_player.greg_s_mac_mini:
       friendly_name: Living Room Plex
 
-    media_player.home_theater:
-      emulated_hue: true
-
     # ISY Binary Sensor definitions
     binary_sensor.nursery_door:
       device_class: opening
@@ -55,9 +52,6 @@ homeassistant:
 
     switch.space_heater:
       icon: mdi:fire
-
-    input_boolean.sleep_time:
-      emulated_hue: true
 
     switch.downstairs_bath_light_and_fan:
       icon: mdi:fan
@@ -189,6 +183,10 @@ logger:
 
 # Enables the frontend
 frontend:
+map:
+
+# Enable the Configuration panel
+config:
 
 http:
   api_password: !secret http_api_password
@@ -210,29 +208,28 @@ updater:
 # Discover some devices automatically
 discovery:
 
+# Needed for iOS to support location and push notifications
 zeroconf:
 
+# Allow iOS app
 ios:
 
 # Track the sun
 sun:
 
-emulated_hue:
-  expose_by_default: false
 
+# mqtt:
+#   broker: !secret mqtt_broker
+#   port: !secret mqtt_port
+#   username: !secret mqtt_username
+#   password: !secret mqtt_password
 
-mqtt:
-  broker: !secret mqtt_broker
-  port: !secret mqtt_port
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-
-device_tracker owntracks:
-  - platform: owntracks
-    max_gps_accuracy: 200
-    waypoints: True
-    waypoint_whitelist:
-      - greg
+# device_tracker owntracks:
+#   - platform: owntracks
+#     max_gps_accuracy: 200
+#     waypoints: True
+#     waypoint_whitelist:
+#       - greg
 
 sensor steam:
   - platform: steam_online
@@ -286,11 +283,6 @@ sensor sonarr:
     monitored_conditions:
       - upcoming
       - diskspace
-
-media_player:
-  - platform: spotify
-    client_id: !secret spotify_client_id
-    client_secret: !secret spotify_client_secret
 
 ###########################
 ## HOME THEATER CONTROLS ##

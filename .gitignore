@@ -2,6 +2,7 @@
 deps/
 tts/
 ozw_config/
+homebridge/
 
 secrets\.yaml
 plex\.conf
@@ -16,6 +17,9 @@ panels/floorplan\.html
 www/custom_ui/floorplan/
 www/custom_ui/state-card-floorplan\.html
 html5_push_registrations\.conf
+harmony_living_room\.conf
+options\.xml
+phue\.conf
 
 zwcfg_*
 *.list

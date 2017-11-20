@@ -4,7 +4,7 @@
 
 zwave:
   usb_path: /dev/ttyACM0
-  config_path: /srv/homeassistant/lib/python3.4/site-packages/python_openzwave/ozw_config
+  # config_path: /srv/homeassistant/lib/python3.4/site-packages/python_openzwave/ozw_config
 
 homeassistant:
   customize:
@@ -84,27 +84,27 @@ homeassistant:
       friendly_name: Bedroom UV
       hidden: true
 
-    sensor.water_boiler_switch_current:
-      friendly_name: Water Boiler Current
-      hidden: true
-    sensor.water_boiler_switch_energy:
-      friendly_name: Water Boiler Energy
-      hidden: true
-    sensor.water_boiler_switch_power:
-      friendly_name: Water Boiler Power
-    sensor.water_boiler_switch_previous_reading:
-      friendly_name: Water Boiler Previous Energy
-      hidden: true
-    sensor.water_boiler_switch_previous_reading_2:
-      friendly_name: Water Boiler Previous Power
-      hidden: true
-    sensor.water_boiler_switch_voltage:
-      friendly_name: Water Boiler Voltage
-      hidden: true
+    # sensor.water_boiler_switch_current:
+    #   friendly_name: Water Boiler Current
+    #   hidden: true
+    # sensor.water_boiler_switch_energy:
+    #   friendly_name: Water Boiler Energy
+    #   hidden: false
+    # sensor.water_boiler_switch_power:
+    #   friendly_name: Water Boiler Power
+    # sensor.water_boiler_switch_previous_reading:
+    #   friendly_name: Water Boiler Previous Energy
+    #   hidden: true
+    # sensor.water_boiler_switch_previous_reading_2:
+    #   friendly_name: Water Boiler Previous Power
+    #   hidden: true
+    # sensor.water_boiler_switch_voltage:
+    #   friendly_name: Water Boiler Voltage
+    #   hidden: true
 
-    switch.water_boiler_switch_switch:
-      friendly_name: Water Boiler
-      icon: mdi:coffee
+    # switch.water_boiler_switch_switch:
+    #   friendly_name: Water Boiler
+    #   icon: mdi:coffee
 
     sensor.washer_switch_current:
       friendly_name: Washer Current
@@ -126,5 +126,28 @@ homeassistant:
 
     switch.washer_switch_switch:
       friendly_name: Washer
+      icon: mdi:washing-machine
+      hidden: true
+
+    sensor.dryer_switch_current:
+      friendly_name: Dryer Current
+      hidden: true
+    sensor.dryer_switch_energy:
+      friendly_name: Dryer Energy
+      hidden: true
+    sensor.dryer_switch_power:
+      friendly_name: Dryer Power
+    sensor.dryer_switch_previous_reading:
+      friendly_name: Dryer Previous Energy
+      hidden: true
+    sensor.dryer_switch_previous_reading_2:
+      friendly_name: Dryer Previous Power
+      hidden: true
+    sensor.dryer_switch_voltage:
+      friendly_name: Dryer Voltage
+      hidden: true
+
+    switch.dryer_switch_switch:
+      friendly_name: Dryer
       icon: mdi:washing-machine
       hidden: true

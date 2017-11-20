@@ -1,0 +1,45 @@
+###########################
+## VOICE CONTROL         ##
+###########################
+
+emulated_hue:
+  expose_by_default: false
+
+homeassistant:
+  customize:
+    light.tv_backlight:
+      emulated_hue_hidden: false
+      emulated_hue_name: HT Backlight
+
+    media_player.home_theater:
+      emulated_hue_hidden: false
+
+    input_boolean.sleep_time:
+      emulated_hue_hidden: false
+
+    group.living_room_voice:
+      emulated_hue_hidden: false
+
+    group.kitchen_voice:
+      emulated_hue_hidden: false
+
+    group.downstairs_bathroom_voice:
+      emulated_hue_hidden: false
+
+    group.entryway_voice:
+      emulated_hue_hidden: false
+
+    group.garage_voice:
+      emulated_hue_hidden: false
+
+    group.upstairs_hall_voice:
+      emulated_hue_hidden: false
+
+    group.nursery_voice:
+      emulated_hue_hidden: false
+
+    group.master_bedroom_voice:
+      emulated_hue_hidden: false
+
+    group.master_bathroom_voice:
+      emulated_hue_hidden: false

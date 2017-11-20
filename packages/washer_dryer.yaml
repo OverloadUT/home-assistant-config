@@ -9,10 +9,19 @@ binary_sensor:
     entity_id: sensor.washer_switch_power
     off_delay:
         minutes: 5
+  - platform: threshold
+    name: Dryer
+    threshold: 0
+    type: upper
+    entity_id: sensor.dryer_switch_power
+    off_delay:
+        minutes: 5
 
 homeassistant:
   customize:
     binary_sensor.washer:
+      icon: mdi:washing-machine
+    binary_sensor.dryer:
       icon: mdi:washing-machine
 
 automation:
@@ -25,3 +34,13 @@ automation:
       - service: notify.laundry
         data:
           message: The washing machine has finished its load!
+
+  - alias: Notify when dryer is done
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dryer
+      to: 'off'
+    action:
+      - service: notify.laundry
+        data:
+          message: The dryer has finished!

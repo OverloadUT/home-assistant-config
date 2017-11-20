@@ -1,0 +1,30 @@
+sensor.living_room_multisensor_air_flow:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_co2_level:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_dew_point:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_loudness:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_moisture:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_rain_rate:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_seismic_magnitude:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_solar_radiation:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_tide_level:
+  ignored: true
+  polling_intensity: 0
+sensor.living_room_multisensor_weight:
+  ignored: true
+  polling_intensity: 0

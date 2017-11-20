@@ -2,17 +2,17 @@
 ## CAMERAS               ##
 ###########################
 
-amcrest:
-  - host: 192.168.0.50
-    name: "Finn's Room"
-    username: !secret camera_amcrest_username
-    password: !secret camera_amcrest_password
-    stream_source: mjpeg
-    resolution: low
-    sensors:
-      - motion_detector
-      - sdcard
-      - ptz_preset
+# amcrest:
+#   - host: 192.168.0.50
+#     name: "Finn's Room"
+#     username: !secret camera_amcrest_username
+#     password: !secret camera_amcrest_password
+#     stream_source: mjpeg
+#     resolution: low
+#     sensors:
+#       - motion_detector
+#       - sdcard
+#       - ptz_preset
 
-camera:
-  - platform: amcrest
+# camera:
+#   - platform: amcrest

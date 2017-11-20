@@ -37,6 +37,7 @@ group:
     view: yes
     icon: mdi:theater
     entities:
+      - remote.living_room
       - switch.tv_power
       - switch.receiver_power
       - media_player.home_theater
@@ -159,6 +160,12 @@ group:
       - sensor.washer_switch_previous_reading
       - sensor.washer_switch_voltage
       - binary_sensor.washer
+      - sensor.dryer_switch_current
+      - sensor.dryer_switch_energy
+      - sensor.dryer_switch_power
+      - sensor.dryer_switch_previous_reading
+      - sensor.dryer_switch_voltage
+      - binary_sensor.dryer
 
   system_monitor:
     name: System Monitor
@@ -189,26 +196,51 @@ group:
   living_room:
     name: Living Room
     entities:
+      - binary_sensor.living_room_multisensor_sensor
+      - sensor.living_room_multisensor_temperature
       - light.lr_track_lights_front
       - light.lr_track_lights_rear
+      - light.tv_backlight
+  living_room_voice:
+    name: Living Room
+    entities:
+      - light.lr_track_lights_front
+      - light.lr_track_lights_rear
+
   kitchen:
     name: Kitchen
     entities:
       - light.kitchen_lights
       - switch.water_boiler_switch_switch
+  kitchen_voice:
+    name: Kitchen
+    entities:
+      - light.kitchen_lights
+
   dining_room:
     name: Dining Room
     entities:
       - binary_sensor.french_doors
+
   downstairs_bathroom:
     name: Downstairs Bathroom
     entities:
       - switch.downstairs_bath_light_and_fan
+  downstairs_bathroom_voice:
+    name: Downstairs Bathroom
+    entities:
+      - switch.downstairs_bath_light_and_fan
+
   entryway:
     name: Entryway
     entities:
       - binary_sensor.front_door
       - light.downstairs_hall_lights
+  entryway_voice:
+    name: Entryway
+    entities:
+      - light.downstairs_hall_lights
+
   garage:
     name: Garage
     entities:
@@ -216,23 +248,50 @@ group:
       - light.garage_washer_light
       - switch.garage_fluorescent_lights
       - binary_sensor.washer
+      - binary_sensor.dryer
+  garage_voice:
+    name: Garage
+    entities:
+      - light.garage_washer_light
+      - switch.garage_fluorescent_lights
+
   upstairs_hall:
     name: Upstairs Hall
     entities:
       - light.upstairs_hall_lights
+  upstairs_hall_voice:
+    name: Upstairs Hall
+    entities:
+      - light.upstairs_hall_lights
+
   nursery:
     name: Finn's Room
     entities:
       - binary_sensor.nursery_door
+      - binary_sensor.finns_room_multisensor_sensor
+      - sensor.finns_room_multisensor_temperature
       - light.nursery_floor_lamp
+  nursery_voice:
+    name: Finn's Room
+    entities:
+      - light.nursery_floor_lamp
+
   master_bedroom:
     name: Master Bedroom
     entities:
       - binary_sensor.bedroom_door
+      - binary_sensor.bedroom_multisensor_sensor
+      - sensor.bedroom_multisensor_temperature
       - light.bedroom_main_light
       - light.master_bedroom_wall_lamps
       - switch.mbr_underbed_led_strip
       - group.master_bathroom
+  master_bedroom_voice:
+    name: Bedroom
+    entities:
+      - light.bedroom_main_light
+      - light.master_bedroom_wall_lamps
+
   master_bathroom:
     name: Master Bathroom
     entities:
@@ -240,6 +299,14 @@ group:
       - light.master_bathroom_can_lights
       - light.master_bathroom_shower_light
       - switch.master_bathroom_fan
+  master_bathroom_voice:
+    name: Master Bathroom
+    entities:
+      - light.master_bathroom_vanity_lights
+      - light.master_bathroom_can_lights
+      - light.master_bathroom_shower_light
+      - switch.master_bathroom_fan
+
   yard:
     name: Yard
     entities:

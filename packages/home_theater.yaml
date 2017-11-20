@@ -2,102 +2,123 @@
 ## HOME THEATER CONTROLS ##
 ###########################
 
+remote:
+  - platform: harmony
+    name: Living Room
+    scan_interval: 5
+    activity: 29304816
+
+homeassistant:
+  customize:
+    remote.living_room:
+      friendly_name: Living Room Harmony Hub
+
+sensor:
+  - platform: template
+    sensors:
+      spotify_output:
+        friendly_name: "Spotify Output"
+        entity_id: media_player.spotify
+        value_template: "{{ states.media_player.spotify.attributes.source }}"
+
+binary_sensor:
+  - platform: template
+    sensors:
+      spotify_output_to_firetv:
+        friendly_name: "Spotify Outputting to FireTV"
+        entity_id: sensor.spotify_output
+        value_template: "{{ is_state('sensor.spotify_output', 'Amazon FireTV Stick') }}"
+
+      
 media_player:
-  platform: universal
-  name: Home Theater
-  children:
-    - media_player.greg_s_mac_mini
-  commands:
-    turn_on:
-      service: script.home_theater_turn_on
-    turn_off:
-      service: script.home_theater_turn_off
-    select_source:
-      service: script.home_theater_input_switch
-      data_template:
-        source: "{{source}}"
-  attributes:
-    source_list: input_select.home_theater_activities|options
-    source: input_select.home_theater_activities
-    state: switch.receiver_power
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+
+  - platform: universal
+    name: Home Theater
+    children:
+      - media_player.greg_s_mac_mini
+    commands:
+      turn_on:
+        service: remote.turn_on
+        entity_id: remote.living_room
+      turn_off:
+        service: remote.turn_off
+        entity_id: remote.living_room
+      volume_up:
+        service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          command: VolumeUp
+          device: 48828020
+      volume_down:
+        service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          command: VolumeDown
+          device: 48828020
+      volume_mute:
+        service: remote.send_command
+        entity_id: remote.living_room
+        data:
+          command: Mute
+          device: 48828020
+      select_source:
+        service: remote.turn_on
+        data_template:
+          entity_id: remote.living_room
+          activity: "{{source}}"
+    attributes:
+      source_list: input_select.home_theater_activities|options
+      source: remote.living_room|current_activity
+      state: remote.living_room
 
 input_select:
   home_theater_activities:
     name: Home Theater Activities
     options:
-      - none
-      - plex
-      - firetv
-    initial: none
+      - Watch Plex
+      - Watch Fire TV
+      - Listen to Music
+    initial: Watch Plex
     icon: mdi:television
 
-# Scripts to handle sequences of IR commands
-script:
-  home_theater_turn_on:
-    alias: Turn on Home Theater
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.tv_power
-      - delay:
-          seconds: 1
-      - service: switch.turn_on
-        entity_id: switch.receiver_power
-
-  home_theater_turn_off:
-    alias: Turn off Home Theater
-    sequence:
-      - service: switch.turn_off
-        entity_id: switch.tv_power
-      - delay:
-          seconds: 2
-      - service: switch.turn_off
-        entity_id: switch.receiver_power
-
-  home_theater_input_switch:
-    alias: Change Home Theater Input
-    sequence:
-      - service_template: script.turn_on
-        data_template:
-          entity_id: >
-            script.home_theater_input_{{source}}
-
-  home_theater_input_plex:
-    alias: Home Theater Input Plex
-    sequence:
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.home_theater_activities
-          option: 'plex'
-      - service: switch.turn_on
-        entity_id: switch.htpc_launch_plex
-      - delay:
-          seconds: 1
-      - service: switch.turn_on
-        entity_id: switch.receiver_input_plex
-
-  home_theater_input_firetv:
-    alias: Home Theater Input Fire TV
-    sequence:
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.home_theater_activities
-          option: 'firetv'
-      - delay:
-          seconds: 1
-      - service: switch.turn_on
-        entity_id: switch.receiver_input_fire_tv
-
-  home_theater_input_none:
-    alias: Home Theater Input None
-    sequence:
-      - service: input_select.select_option
-        data:
-          entity_id: input_select.home_theater_activities
-          option: 'none'
-
-
-
 automation:
+  - alias: Turn on bias lighting when TV is on
+    trigger:
+      - platform: state
+        entity_id: media_player.home_theater
+        from: 'off'
+      - platform: state
+        entity_id: sun.sun
+        to: 'below_horizon'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: 'below_horizon'
+        - condition: template
+          value_template: "{{ states.media_player.home_theater.state != 'off' }}"
+    action:
+      - service: light.turn_on
+        entity_id: light.tv_backlight
+        data:
+          kelvin: 6500
+          brightness_pct: 100
+
+  - alias: Turn off bias lighting when TV is off
+    trigger:
+      platform: state
+      entity_id: media_player.home_theater
+      to: 'off'
+    action:
+      - service: light.turn_off
+        entity_id: light.tv_backlight
+
+
+  ## AUTOMATIC PLEX ACTIVITIES
   - alias: Turn on Home Theater when Plex media starts
     trigger:
       platform: state
@@ -110,10 +131,6 @@ automation:
     action:
       - service: homeassistant.turn_on
         entity_id: media_player.home_theater
-      - service: media_player.select_source
-        entity_id: media_player.home_theater
-        data:
-          source: 'plex'
 
   - alias: Turn off Home Theater when Plex has been idle
     trigger:
@@ -129,37 +146,48 @@ automation:
           entity_id: media_player.home_theater
           state: 'on'
         - condition: template
-          value_template: '{{ not is_state_attr("media_player.greg_s_mac_mini", "source", "plex") }}'
+          value_template: '{{ is_state_attr("media_player.home_theater", "source", "Watch Plex") }}'
     action:
       - service: homeassistant.turn_off
         entity_id: media_player.home_theater
 
+  ## AUTOMATIC SPOTIFY ON TV ACTIVITIES
   - alias: Turn on Home Theater when Spotify casts to Fire TV
     trigger:
-      platform: template
-      value_template: '{{ is_state_attr("media_player.spotify", "source", "Amazon FireTV Stick") }}'
+      - platform: state
+        entity_id: binary_sensor.spotify_output_to_firetv
+        to: 'on'
+      - platform: state
+        entity_id: media_player.spotify
+        to: 'playing'
     condition:
-      condition: or
+      condition: and
       conditions:
+        - condition: state
+          entity_id: binary_sensor.spotify_output_to_firetv
+          state: 'on'
         - condition: state
           entity_id: media_player.home_theater
           state: 'off'
-        - condition: template
-          value_template: '{{ not is_state_attr("media_player.home_theater", "source", "firetv") }}'
     action:
-      - service: homeassistant.turn_on
-        entity_id:
-          - media_player.home_theater
       - service: media_player.select_source
         entity_id:
           - media_player.home_theater
         data:
-          source: 'firetv'
+          source: 'Listen to Music'
 
   - alias: Turn off Home Theater when Spotify stops casting to Fire TV
     trigger:
-      platform: template
-      value_template: '{{ not is_state_attr("media_player.spotify", "source", "Amazon FireTV Stick") }}'
+      - platform: state
+        entity_id: binary_sensor.spotify_output_to_firetv
+        to: 'off'
+        for:
+          minutes: 5
+      - platform: state
+        entity_id: media_player.spotify
+        to: 'paused'
+        for:
+          minutes: 5
     condition:
       condition: and
       conditions:
@@ -167,7 +195,7 @@ automation:
           entity_id: media_player.home_theater
           state: 'on'
         - condition: template
-          value_template: '{{ is_state_attr("media_player.home_theater", "source", "firetv") }}'
+          value_template: '{{ is_state_attr("media_player.home_theater", "source", "Listen to Music") }}'
     action:
       - service: homeassistant.turn_off
         entity_id:

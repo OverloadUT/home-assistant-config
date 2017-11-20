@@ -2,5 +2,40 @@
 ##        ALERTS         ##
 ###########################
 
-# binary_sensor:
-#   platform: template
+automation:
+  - alias: Leak Alarm
+    trigger:
+      platform: state
+      entity_id: binary_sensor.downstairs_bathroom_leak, binary_sensor.kitchen_sink_leak, binary_sensor.mainline_leak, binary_sensor.washer_leak
+      to: 'on'
+    action:
+      - service: notify.emergency
+        data_template:
+          title: 'LEAK DETECTED'
+          message: 'A leak was detected at {{ trigger.to_state.name }}!'
+
+  - alias: Laptop At Home Alarm When Door Opened
+    trigger:
+      platform: state
+      entity_id: binary_sensor.front_door
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: device_tracker.beacon_laptop_bag
+          state: 'home'
+        - condition: time
+          after: '07:00:00'
+          before: '12:00:00'
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+    action:
+      - service: notify.greg
+        data:
+          title: 'LAPTOP!'
+          message: "Don't forget your laptop!"

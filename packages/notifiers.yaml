@@ -31,7 +31,9 @@ notify:
     services:
       - service: html5
         data:
-          target: ["Rhea", "Greg Work Laptop"]
+          target:
+            - Rhea
+            - Greg Work Laptop
       - service: ios_greg
 
   - name: Laundry
