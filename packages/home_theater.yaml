@@ -5,40 +5,61 @@
 remote:
   - platform: harmony
     name: Living Room
-    scan_interval: 5
-    activity: 29304816
+    activity: SHIELD TV
 
 homeassistant:
   customize:
     remote.living_room:
       friendly_name: Living Room Harmony Hub
+    media_player.shield:
+      friendly_name: Shield Google Cast
 
 sensor:
   - platform: template
     sensors:
       spotify_output:
         friendly_name: "Spotify Output"
-        entity_id: media_player.spotify
-        value_template: "{{ states.media_player.spotify.attributes.source }}"
+        entity_id: media_player.cailins_spotify
+        value_template: "{{ states.media_player.cailins_spotify.attributes.source }}"
 
 binary_sensor:
   - platform: template
     sensors:
-      spotify_output_to_firetv:
-        friendly_name: "Spotify Outputting to FireTV"
+      spotify_output_to_shield:
+        friendly_name: "Spotify Outputting to SHIELD"
         entity_id: sensor.spotify_output
-        value_template: "{{ is_state('sensor.spotify_output', 'Amazon FireTV Stick') }}"
+        value_template: "{{ is_state('sensor.spotify_output', 'SHIELD') }}"
 
+switch:
+  - platform: template
+    switches:
+      nintendo_switch:
+        friendly_name: Nintendo Switch
+        value_template: '{{ is_state_attr("media_player.home_theater", "source", "Nintendo Switch") }}'
+        turn_on:
+          service: remote.turn_on
+          data:
+            entity_id: remote.living_room
+            activity: "Nintendo Switch"
+        turn_off:
+          service: media_player.turn_off
+          data:
+            entity_id: media_player.home_theater
       
 media_player:
-  - platform: spotify
-    client_id: !secret spotify_client_id
-    client_secret: !secret spotify_client_secret
+  - platform: plex
+
+  # - platform: spotify
+  #   name: Cailin's Spotify
+  #   client_id: !secret spotify_client_id_cailin
+  #   client_secret: !secret spotify_client_secret_cailin
 
   - platform: universal
     name: Home Theater
     children:
-      - media_player.greg_s_mac_mini
+      - media_player.shield_android_tv
+      - media_player.m2pserver
+      - media_player.shield
     commands:
       turn_on:
         service: remote.turn_on
@@ -78,13 +99,36 @@ input_select:
   home_theater_activities:
     name: Home Theater Activities
     options:
-      - Watch Plex
-      - Watch Fire TV
-      - Listen to Music
-    initial: Watch Plex
+      - SHIELD TV
+      - Nintendo Switch
+      - Music
+      - Play PS3
+      - Watch PC
+      - Thursday Knights
+    initial: SHIELD TV
     icon: mdi:television
 
 automation:
+  ## GENERAL AUTOMATIONS
+  - alias: Turn off Home Theater when TV turns off
+    trigger:
+      - platform: state
+        entity_id: sensor.television_outlet_power
+        to: '0.0'
+        for:
+          minutes: 5
+    condition:
+      - condition: and
+        conditions:
+        - condition: template
+          value_template: "{{ states.media_player.home_theater.state != 'off' }}"
+        - condition: template
+          value_template: '{{ not is_state_attr("media_player.home_theater", "source", "Music") }}'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: media_player.home_theater
+
+  ## BIAS LIGHTING
   - alias: Turn on bias lighting when TV is on
     trigger:
       - platform: state
@@ -122,7 +166,7 @@ automation:
   - alias: Turn on Home Theater when Plex media starts
     trigger:
       platform: state
-      entity_id: media_player.greg_s_mac_mini
+      entity_id: media_player.shield_android_tv
       to: 'playing'
     condition:
       condition: state
@@ -132,72 +176,58 @@ automation:
       - service: homeassistant.turn_on
         entity_id: media_player.home_theater
 
-  - alias: Turn off Home Theater when Plex has been idle
-    trigger:
-      platform: state
-      entity_id: media_player.greg_s_mac_mini
-      to: 'idle'
-      for:
-        minutes: 30
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: media_player.home_theater
-          state: 'on'
-        - condition: template
-          value_template: '{{ is_state_attr("media_player.home_theater", "source", "Watch Plex") }}'
-    action:
-      - service: homeassistant.turn_off
-        entity_id: media_player.home_theater
-
-  ## AUTOMATIC SPOTIFY ON TV ACTIVITIES
-  - alias: Turn on Home Theater when Spotify casts to Fire TV
+  ## AUTOMATIC SQUEEZEPLAYER ACTIVITIES
+  - alias: Turn on Home Theater with Squeezeplayer
     trigger:
       - platform: state
-        entity_id: binary_sensor.spotify_output_to_firetv
-        to: 'on'
-      - platform: state
-        entity_id: media_player.spotify
-        to: 'playing'
+        entity_id: media_player.m2pserver
+        from: 'off' # Match on, playing, paused, etc
     condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: binary_sensor.spotify_output_to_firetv
-          state: 'on'
-        - condition: state
-          entity_id: media_player.home_theater
-          state: 'off'
+      condition: state
+      entity_id: media_player.home_theater
+      state: 'off'
     action:
       - service: media_player.select_source
         entity_id:
           - media_player.home_theater
         data:
-          source: 'Listen to Music'
+          source: 'Music'
 
-  - alias: Turn off Home Theater when Spotify stops casting to Fire TV
+  - alias: Turn off Home Theater with Squeezeplayer
     trigger:
       - platform: state
-        entity_id: binary_sensor.spotify_output_to_firetv
+        entity_id: media_player.m2pserver
         to: 'off'
-        for:
-          minutes: 5
-      - platform: state
-        entity_id: media_player.spotify
-        to: 'paused'
-        for:
-          minutes: 5
     condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: media_player.home_theater
-          state: 'on'
-        - condition: template
-          value_template: '{{ is_state_attr("media_player.home_theater", "source", "Listen to Music") }}'
+      condition: template
+      value_template: '{{ is_state_attr("media_player.home_theater", "source", "Music") }}'
     action:
       - service: homeassistant.turn_off
         entity_id:
           - media_player.home_theater
 
+  - alias: Turn off Squeezeplayer with Home Theater
+    trigger:
+      - platform: state
+        entity_id: media_player.home_theater
+        to: 'off'
+      - platform: template
+        value_template: '{{ not is_state_attr("media_player.home_theater", "source", "Music") }}'
+    condition:
+      condition: template
+      value_template: "{{ states.media_player.m2pserver.state != 'off' }}"
+    action:
+      - service: homeassistant.turn_off
+        entity_id:
+          - media_player.m2pserver
+
+  - alias: Turn off Family Room Squeezeplayer when idle
+    trigger:
+      - platform: state
+        entity_id: media_player.m2pserver
+        to: 'paused'
+        for:
+          minutes: 5
+    action:
+      - service: homeassistant.turn_off
+        entity_id: media_player.m2pserver

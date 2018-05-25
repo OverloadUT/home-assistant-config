@@ -13,172 +13,17 @@ homeassistant:
 
   packages: !include_dir_named packages
 
-  customize:
-    media_player.greg_s_mac_mini:
-      friendly_name: Living Room Plex
+  customize: !include customize.yaml
 
-    # ISY Binary Sensor definitions
-    binary_sensor.nursery_door:
-      device_class: opening
-    binary_sensor.garage_door:
-      device_class: opening
-    binary_sensor.front_door:
-      device_class: opening
-    binary_sensor.bedroom_door:
-      device_class: opening
-    binary_sensor.french_doors:
-      device_class: opening
-
-
-    binary_sensor.downstairs_bathroom_leak:
-      device_class: moisture
-    binary_sensor.kitchen_sink_leak:
-      device_class: moisture
-    binary_sensor.mainline_leak:
-      device_class: moisture
-    binary_sensor.washer_leak:
-      device_class: moisture
-
-    group.all_automations:
-      hidden: false
-    group.all_devices:
-      hidden: false
-    group.all_scripts:
-      hidden: false
-    group.all_lights:
-      hidden: false
-    group.all_switches:
-      hidden: false
-
-    switch.space_heater:
-      icon: mdi:fire
-
-    switch.downstairs_bath_light_and_fan:
-      icon: mdi:fan
-    switch.master_bathroom_fan:
-      icon: mdi:fan
-
-    light.nursery_floor_lamp:
-      icon: mdi:lamp
-
-
-    # Hidden pseudo-devices
-    light.bedroom_remotelinc__a:
-      hidden: true
-    light.bedroom_remotelinc__b:
-      hidden: true
-    light.bedroom_remotelinc__c:
-      hidden: true
-    light.bedroom_remotelinc__d:
-      hidden: true
-    light.downstairs_hall_lights_slave:
-      hidden: true
-    light.entry_table_lamp:
-      hidden: true
-    light.family_room_floor_lamp:
-      hidden: true
-    light.hdmi_switcher_input_1:
-      hidden: true
-    light.hdmi_switcher_input_2:
-      hidden: true
-    light.lr_track_lights_front_slave:
-      hidden: true
-    light.mbr_keypad_a__corner_lamp:
-      hidden: true
-    light.mbr_keypad_b__bath_vanity:
-      hidden: true
-    light.mbr_keypad_c__dim_lights:
-      hidden: true
-    light.mbr_keypad_d__all_off:
-      hidden: true
-    light.mbr_keypad_main:
-      hidden: true
-    light.receiver_input_aux1:
-      hidden: true
-    light.receiver_input_aux2:
-      hidden: true
-    light.receiver_input_cd:
-      hidden: true
-    light.receiver_off:
-      hidden: true
-    light.receiver_on:
-      hidden: true
-    light.tv_down:
-      hidden: true
-    light.tv_menu:
-      hidden: true
-    light.tv_off:
-      hidden: true
-    light.tv_okay:
-      hidden: true
-    light.tv_on:
-      hidden: true
-    light.unknown_command:
-      hidden: true
-    light.upstairs_hall_lights_slave:
-      hidden: true
-    switch.front_doorclosed:
-      hidden: true
-    switch.front_dooropened:
-      hidden: true
-    switch.garage_interior_doorclosed:
-      hidden: true
-    switch.garage_interior_dooropened:
-      hidden: true
-    switch.leak_dbadry:
-      hidden: true
-    switch.leak_dbaheartbeat:
-      hidden: true
-    switch.leak_dbawet:
-      hidden: true
-    switch.leak_garage_mainlinedry:
-      hidden: true
-    switch.leak_garage_mainlineheartbea:
-      hidden: true
-    switch.leak_garage_mainlinewet:
-      hidden: true
-    switch.leak_garage_washerdry:
-      hidden: true
-    switch.leak_garage_washerheartbeat:
-      hidden: true
-    switch.leak_garage_washerwet:
-      hidden: true
-    switch.leak_kitchen_sinkdry:
-      hidden: true
-    switch.leak_kitchen_sinkheartbeat:
-      hidden: true
-    switch.leak_kitchen_sinkwet:
-      hidden: true
-    switch.mbr_doorclosed:
-      hidden: true
-    switch.mbr_dooropened:
-      hidden: true
-    switch.nursery_doorclosed:
-      hidden: true
-    switch.nursery_dooropened:
-      hidden: true
-    switch.nursery_doorheartbeat:
-      hidden: true
-    switch.receiver_input_cbl_sat:
-      hidden: true
-    switch.receiver_input_dvd:
-      hidden: true
-    switch.receiver_input_game_tv:
-      hidden: true
-    switch.receiver_input_vcr_dvd:
-      hidden: true
-    switch.receiver_mute:
-      hidden: true
-    switch.receiver_volume_down:
-      hidden: true
-    switch.receiver_volume_up:
-      hidden: true
+group: !include groups.yaml
 
 logger:
     default: warn
     logs:
         homeassistant.components.history: debug
         homeassistant.components.recorder: debug
+        # homeassistant.components.isy994: debug
+        # custom_components.isy994: debug
         netdisco.ssdp: error
 
 # Enables the frontend
@@ -188,12 +33,30 @@ map:
 # Enable the Configuration panel
 config:
 
+cloud:
+  alexa:
+    filter:
+      include_entities:
+        - media_player.home_theater
+        - switch.nintendo_switch
+      include_domains:
+        - none
+    entity_config:
+      media_player.home_theater:
+        name: TV
+        description: The home theater in the family room
+      switch.nintendo_switch:
+        name: Nintendo Switch
+        description: Nintendo Switch on the  Home Theater
+
 http:
   api_password: !secret http_api_password
   base_url: !secret http_base_url
   # server_port: !secret http_server_port
   ssl_certificate: !secret http_ssl_certificate
   ssl_key: !secret http_ssl_key
+  cors_allowed_origins:
+    - http://hassio:7080
 
 panel_custom:
   - name: floorplan
@@ -269,30 +132,73 @@ sensor dark sky:
 
 # Text to speech
 tts:
-  platform: google
+  - platform: amazon_polly
+    name: AWS Polly Joanna
+    aws_access_key_id: !secret amazon_aws_access_id
+    aws_secret_access_key: !secret amazon_aws_secret_key
+    region_name: 'us-west-2'
+    voice: Joanna
 
-# device_tracker router: !secret device_tracker_tomato
+  # - platform: amazon_polly
+  #   name: AWS Polly Justin
+  #   aws_access_key_id: !secret amazon_aws_access_id
+  #   aws_secret_access_key: !secret amazon_aws_secret_key
+  #   region_name: 'us-west-2'
+  #   voice: Justin
+    
+  # - platform: amazon_polly
+  #   name: AWS Polly Matthew
+  #   aws_access_key_id: !secret amazon_aws_access_id
+  #   aws_secret_access_key: !secret amazon_aws_secret_key
+  #   region_name: 'us-west-2'
+  #   voice: Matthew
+
+  # - platform: amazon_polly
+  #   name: AWS Polly Brian
+  #   aws_access_key_id: !secret amazon_aws_access_id
+  #   aws_secret_access_key: !secret amazon_aws_secret_key
+  #   region_name: 'us-west-2'
+  #   voice: Brian
 
 isy994: !secret isy994
 
-sensor sonarr:
-  - platform: sonarr
-    api_key: !secret sonarr_api_key
-    host: !secret sonarr_host
-    port: !secret sonarr_port
-    monitored_conditions:
-      - upcoming
-      - diskspace
+# device_tracker: !secret device_tracker_unifi
 
-###########################
-## HOME THEATER CONTROLS ##
-###########################
-media_player plex:
-  - platform: plex
+media_player:
+  - platform: squeezebox
+    name: Squeezebox
+    host: 192.168.0.158
+
+# sensor sonarr:
+#   - platform: sonarr
+#     api_key: !secret sonarr_api_key
+#     host: !secret sonarr_host
+#     port: !secret sonarr_port
+#     monitored_conditions:
+#       - upcoming
+#       - diskspace
 
 #################
 ## Automations ##
 #################
+
+automation humidity:
+  - alias: Humidifier Off
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.finns_room_multisensor_relative_humidity
+      above: 69
+    action:
+      service: homeassistant.turn_off
+      entity_id: switch.bedroom_electronics_outlet_switch
+  - alias: Humidifier On
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.finns_room_multisensor_relative_humidity
+      below: 65
+    action:
+      service: homeassistant.turn_on
+      entity_id: switch.bedroom_electronics_outlet_switch
 
 automation notifications:
   # ##################

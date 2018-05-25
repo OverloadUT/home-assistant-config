@@ -1,0 +1,447 @@
+###############
+## MAIN VIEW ##
+###############
+main:
+  name: Main
+  view: yes
+  icon: mdi:home-variant
+  entities:
+    - sensor.house_mode
+    - sensor.dark_sky_temperature
+    - group.home_theater
+    - group.residents
+    - group.living_room
+    - group.family_room
+    - group.kitchen
+    - group.dining_room
+    - group.downstairs_bathroom
+    - group.entryway
+    - group.garage
+    - group.yard
+    - group.upstairs_hall
+    - group.nursery
+    - group.master_bedroom
+    - group.climate
+    - group.outside
+
+climate:
+  name: Climate Control
+  entities:
+    - sensor.living_room_temp_diff
+    - sensor.nursery_temp_diff
+    - switch.space_heater
+
+home_theater:
+  name: Home Theater
+  view: yes
+  icon: mdi:theater
+  entities:
+    - remote.living_room
+    - switch.tv_power
+    - switch.receiver_power
+    - media_player.home_theater
+
+music:
+  name: Music
+  view: yes
+  icon: mdi:music
+  entities:
+    - media_player.m2pserver
+    - media_player.m2pfinn
+    - media_player.m2pbedroom
+    - media_player.m2plivingroom
+    - media_player.m2pdeck
+    
+residents:
+  name: People
+  entities:
+    - device_tracker.greg
+    - device_tracker.cailin
+    - device_tracker.kim
+
+##################
+## CAMERAS VIEW ##
+##################
+# cameras:
+#   name: Cameras
+#   view: yes
+#   icon: mdi:camera
+#   entities:
+#     - camera.finns_room
+    
+##################
+## SENSORS VIEW ##
+##################
+sensors:
+  name: Sensors
+  view: yes
+  icon: mdi:speedometer
+  entities:
+    - group.power_meters
+    - group.energy_meters
+    - group.family_room_sensor
+    - group.finns_room_sensor
+    - group.bedroom_sensor
+    - group.weather
+    - group.leaks
+    - group.water_boiler_sensor
+    - group.garage_sensors
+    - group.system_monitor
+    - group.batteries
+
+weather:
+  name: Weather
+  icon: mdi:weather-rainy
+  entities:
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_cloud_coverage
+    - sensor.dark_sky_daily_high_apparent_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_daily_low_apparent_temperature
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.dark_sky_daily_max_precip_intensity
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_wind_bearing
+    - sensor.dark_sky_wind_speed
+
+batteries:
+  name: Batteries
+  icon: mdi:battery
+  entities:
+    - binary_sensor.leak_garage_washerheartbeat
+    - binary_sensor.leak_garage_mainlineheartbea
+    - binary_sensor.carport_doorheartbeat
+    - binary_sensor.leak_dbaheartbeat
+    - binary_sensor.leak_kitchen_sinkheartbeat
+    - binary_sensor.french_doorsheartbeat
+    - binary_sensor.nursery_doorheartbeat
+    - binary_sensor.garage_doorheartbeat
+
+family_room_sensor:
+  name: Family Room Sensors
+  entities:
+    - binary_sensor.living_room_multisensor_sensor
+    - sensor.living_room_multisensor_alarm_level
+    - sensor.living_room_multisensor_alarm_type 
+    - sensor.living_room_multisensor_burglar
+    - sensor.living_room_multisensor_luminance
+    - sensor.living_room_multisensor_relative_humidity
+    - sensor.living_room_multisensor_sourcenodeid
+    - sensor.living_room_multisensor_temperature
+    - sensor.living_room_multisensor_ultraviolet
+
+finns_room_sensor:
+  name: Finn's Room Sensors
+  entities:
+    - binary_sensor.finns_room_multisensor_sensor
+    - sensor.finns_room_multisensor_alarm_level
+    - sensor.finns_room_multisensor_alarm_type 
+    - sensor.finns_room_multisensor_burglar
+    - sensor.finns_room_multisensor_luminance
+    - sensor.finns_room_multisensor_relative_humidity
+    - sensor.finns_room_multisensor_sourcenodeid
+    - sensor.finns_room_multisensor_temperature
+    - sensor.finns_room_multisensor_ultraviolet
+
+bedroom_sensor:
+  name: Bedroom Sensors
+  entities:
+    - binary_sensor.bedroom_multisensor_sensor
+    - sensor.bedroom_multisensor_alarm_level
+    - sensor.bedroom_multisensor_alarm_type 
+    - sensor.bedroom_multisensor_burglar
+    - sensor.bedroom_multisensor_luminance
+    - sensor.bedroom_multisensor_relative_humidity
+    - sensor.bedroom_multisensor_sourcenodeid
+    - sensor.bedroom_multisensor_temperature
+    - sensor.bedroom_multisensor_ultraviolet
+
+leaks:
+  name: Leak Sensors
+  entities:
+    - binary_sensor.washer_leak
+    - binary_sensor.mainline_leak
+    - binary_sensor.downstairs_bathroom_leak
+    - binary_sensor.kitchen_sink_leak
+
+water_boiler_sensor:
+  name: Water Boiler Sensors
+  entities:
+    - sensor.water_boiler_switch_current
+    - sensor.water_boiler_switch_energy
+    - sensor.water_boiler_switch_power
+    - sensor.water_boiler_switch_previous_reading
+    - sensor.water_boiler_switch_voltage
+
+garage_sensors:
+  name: Garage Sensors
+  entities:
+    - sensor.washer_switch_current
+    - sensor.washer_switch_energy
+    - sensor.washer_switch_power
+    - sensor.washer_switch_previous_reading
+    - sensor.washer_switch_voltage
+    - binary_sensor.washer
+    - sensor.dryer_switch_current
+    - sensor.dryer_switch_energy
+    - sensor.dryer_switch_power
+    - sensor.dryer_switch_previous_reading
+    - sensor.dryer_switch_voltage
+    - binary_sensor.dryer
+
+system_monitor:
+  name: System Monitor
+  entities:
+    - sensor.disk_free_
+    - sensor.ram_free
+    - sensor.average_load_5m_percent
+    - sensor.last_boot
+
+power_meters:
+  name: Power Meters
+  entities:
+    - sensor.washer_switch_power
+    - sensor.dryer_switch_power
+    - sensor.audio_rack_outlet_power
+    - sensor.bedroom_electronics_outlet_power
+    - sensor.gregs_desk_outlet_power
+    - sensor.server_rack_outlet_power
+    - sensor.television_outlet_power
+
+energy_meters:
+  name: Energy Meters
+  entities:
+    - sensor.washer_switch_energy
+    - sensor.dryer_switch_energy
+    - sensor.audio_rack_outlet_energy
+    - sensor.bedroom_electronics_outlet_energy
+    - sensor.gregs_desk_outlet_energy
+    - sensor.server_rack_outlet_energy
+    - sensor.television_outlet_energy
+
+#################
+## PEOPLE VIEW ##
+#################
+people:
+  name: People
+  entities:
+    - group.residents
+    - group.travel_times
+
+travel_times:
+  name: Commute
+  entities:
+    - sensor.travel_time_to_home
+    - sensor.travel_time_to_work
+
+#################
+## ROOMS       ##
+#################
+outside:
+  name: Outside
+  entities:
+    - switch.rear_lawn_lights
+    - switch.rear_shrub_lights
+    - switch.christmas_lights
+    - light.deck_lights
+outside_voice:
+  name: Outside
+  entities:
+    - switch.rear_lawn_lights
+    - switch.rear_shrub_lights
+    - light.deck_lights
+
+family_room:
+  name: Family Room
+  entities:
+    - binary_sensor.living_room_multisensor_sensor
+    - sensor.living_room_multisensor_temperature
+    - light.lr_track_lights_front
+    - light.lr_track_lights_rear
+    - light.tv_backlight
+family_room_voice:
+  name: Family Room
+  entities:
+    - light.lr_track_lights_front
+    - light.lr_track_lights_rear
+
+living_room:
+  name: Living Room
+  entities:
+    - light.living_room_floor_lamp
+    - switch.christmas_tree
+living_room_voice:
+  name: Living Room
+  entities:
+    - light.living_room_floor_lamp
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen_lights
+    - switch.water_boiler_switch_switch
+kitchen_voice:
+  name: Kitchen
+  entities:
+    - light.kitchen_lights
+
+dining_room:
+  name: Dining Room
+  entities:
+    - binary_sensor.french_doors
+
+downstairs_bathroom:
+  name: Downstairs Bathroom
+  entities:
+    - switch.downstairs_bath_light_and_fan
+downstairs_bathroom_voice:
+  name: Downstairs Bathroom
+  entities:
+    - switch.downstairs_bath_light_and_fan
+
+entryway:
+  name: Entryway
+  entities:
+    - binary_sensor.front_door
+    - light.downstairs_hall_lights
+    - light.entryway_light
+entryway_voice:
+  name: Entryway
+  entities:
+    - light.downstairs_hall_lights
+    - light.entryway_light
+
+garage:
+  name: Garage
+  entities:
+    - binary_sensor.garage_interior_door
+    - binary_sensor.carport_door
+    - binary_sensor.garage_door
+    - light.garage_washer_light
+    - switch.garage_fluorescent_lights
+    - switch.carport_lights
+    - binary_sensor.washer
+    - binary_sensor.dryer
+garage_voice:
+  name: Garage
+  entities:
+    - light.garage_washer_light
+    - switch.garage_fluorescent_lights
+
+upstairs_hall:
+  name: Upstairs Hall
+  entities:
+    - light.upstairs_hall_lights
+    - light.upstairs_hall_lamp
+upstairs_hall_voice:
+  name: Upstairs Hall
+  entities:
+    - light.upstairs_hall_lights
+    - light.upstairs_hall_lamp
+
+nursery:
+  name: Finn's Room
+  entities:
+    - binary_sensor.nursery_door
+    - binary_sensor.finns_room_multisensor_sensor
+    - sensor.finns_room_motion_detected
+    - automation.finn_out_of_bed_alarm
+    - sensor.finns_room_multisensor_temperature
+    - light.nursery_floor_lamp
+nursery_voice:
+  name: Finn's Room
+  entities:
+    - light.nursery_floor_lamp
+
+master_bedroom:
+  name: Master Bedroom
+  entities:
+    - binary_sensor.bedroom_door
+    - binary_sensor.bedroom_multisensor_sensor
+    - sensor.bedroom_multisensor_temperature
+    - light.bedroom_main_light
+    - light.master_bedroom_wall_lamps
+    - switch.master_bedroom_closet_lights
+    - switch.mbr_underbed_led_strip
+    - group.master_bathroom
+master_bedroom_voice:
+  name: Bedroom
+  entities:
+    - light.bedroom_main_light
+    - light.master_bedroom_wall_lamps
+
+master_bathroom:
+  name: Master Bathroom
+  entities:
+    - light.master_bathroom_vanity_lights
+    - light.master_bathroom_can_lights
+    - light.master_bathroom_shower_light
+    - switch.master_bathroom_fan
+master_bathroom_voice:
+  name: Master Bathroom
+  entities:
+    - light.master_bathroom_vanity_lights
+    - light.master_bathroom_can_lights
+    - light.master_bathroom_shower_light
+    - switch.master_bathroom_fan
+
+yard:
+  name: Yard
+  entities:
+    - switch.mosquito_murderer
+
+## ROOM GROUPS ##
+downstairs:
+  # view: yes
+  entities:
+    - group.family_room
+    - group.living_room
+    - group.kitchen
+    - group.entryway
+    - group.garage
+    - group.downstairs_bathroom
+    - group.dining_room
+
+## OTHER GROUPS ##
+lights_indoor:
+  name: Indoor Lights
+  entities:
+    - light.lr_track_lights_front
+    - light.lr_track_lights_rear
+    - light.living_room_floor_lamp
+    - light.kitchen_lights
+    - switch.downstairs_bath_light_and_fan
+    - light.entryway_light
+    - light.downstairs_hall_lights
+    - light.garage_washer_light
+    - switch.garage_fluorescent_lights
+    - light.upstairs_hall_lights
+    - light.nursery_floor_lamp
+    - light.bedroom_main_light
+    - light.master_bedroom_wall_lamps
+    - switch.mbr_underbed_led_strip
+    - light.master_bathroom_vanity_lights
+    - light.master_bathroom_can_lights
+    - light.master_bathroom_shower_light
+    - switch.master_bathroom_fan
+
+garage_doors:
+  name: Garage Doors
+  control: hidden
+  entities:
+    - binary_sensor.garage_interior_door
+    - binary_sensor.carport_door
+    - binary_sensor.garage_door
+
+doors:
+  name: Doors
+  entities:
+    - binary_sensor.bedroom_door
+    - binary_sensor.nursery_door
+    - binary_sensor.garage_door
+    - binary_sensor.carport_door
+    - binary_sensor.front_door
+    - binary_sensor.french_doors

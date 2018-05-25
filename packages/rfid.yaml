@@ -1,0 +1,69 @@
+
+script:
+  play_finn_music:
+    sequence:
+      - condition: template
+        # First exclude any cards that don't play audio, such as the STOP card
+        value_template: "{{ card_id != '12015233' }}"
+      - service: media_player.play_media
+        entity_id: media_player.m2pfinn
+        data_template:
+          media_content_id: >
+            {% if card_id == '12015854' %} {# Archangel #}
+              spotify:album:1TVpHhBK3pSTqizgLLh16s
+            {% elif card_id == '12015439' %} {# In the Hall of the Mountain King #}
+              spotify:track:5zhuWncJsBKrQ1HhmAKNAg
+            {% elif card_id == '12022371' %} {# Alive 2007 #}
+              spotify:album:7u6zL7kqpgLPISZYXNTgYk
+            {% elif card_id == '12102047' %} {# Peanuts #}
+              spotify:album:1JJ4vlKFmUCxYc1HGrMsRG
+            {% elif card_id == '12016062' %} {# Karma Chameleon #}
+              spotify:track:2wSAWEYUHkt92X4SBAPqZE
+            {% elif card_id == '12015646' %} {# Uptown Funk #}
+              spotify:track:32OlwWuMpZ6b0aN2RZOeMS
+            {% elif card_id == '12021756' %} {# Billy Jonas #}
+              spotify:album:7J6bhVq5s62qS2Sx2FH7Ww
+            {% elif card_id == '12023532' %} {# Yo Yo Ma #}
+              spotify:album:1tN8LMabG1hs3l4renGTJy
+            {% elif card_id == '12045070' %} {# Calling All Dawns #}
+              spotify:album:4dHhWTzYjNcl8fpIglbLhA
+            {% elif card_id == '12021961' %} {# Zelda #}
+              spotify:user:1127177843:playlist:0S7rNTLFTJvfj9eDcj2ZtN
+            {% elif card_id == '19437639' %} {# BOOK: And Tango Makes Three #}
+              /mnt/media/Music/And Tango Makes Three/And Tango Makes Three - Full Book.mp3
+            {% elif card_id == '19414325' %} {# BOOK: Little Blue Truck #}
+              /mnt/media/Music/Audiobooks/Little Blue Truck by Alice Schertle.mp3
+            {% elif card_id == '19422602' %} {# BOOK: Horton Hears a Who #}
+              /mnt/media/Music/Audiobooks/Horton Hears a Who by Dr. Seuss.mp3
+            {% elif card_id == '19429460' %} {# BOOK: The Pout-Pout Fish #}
+              /mnt/media/Music/Audiobooks/The Pout-Pout Fish by Deborah Diesen.mp3
+            {% elif card_id == '19417886' %} {# BOOK: The Snowy Day #}
+              /mnt/media/Music/Audiobooks/The Snowy Day by Ezra Jack Keats.mp3
+            {% endif %}
+          media_content_type: playlist
+
+automation:
+  - alias: Scan Music Card
+    trigger:
+      platform: event
+      event_type: rfid_scan
+      # event_data: # TODO: Restrict to Finn's room
+      #   scanner: "12044702"
+    condition:
+      condition: time
+      after: '6:00:00'
+      before: '19:00:00'
+    action:
+      - service: script.play_finn_music
+        data_template:
+          card_id: "{{ trigger.event.data.card_id }}"
+
+  - alias: Scan STOP Card
+    trigger:
+      platform: event
+      event_type: rfid_scan
+      event_data:
+        card_id: '12015233'
+    action:
+      - service: media_player.media_pause
+        entity_id: media_player.m2pfinn

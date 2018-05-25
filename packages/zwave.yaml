@@ -4,6 +4,7 @@
 
 zwave:
   usb_path: /dev/ttyACM0
+  device_config: !include ../zwave_device_config.yaml
   # config_path: /srv/homeassistant/lib/python3.4/site-packages/python_openzwave/ozw_config
 
 homeassistant:
@@ -108,21 +109,16 @@ homeassistant:
 
     sensor.washer_switch_current:
       friendly_name: Washer Current
-      hidden: true
     sensor.washer_switch_energy:
       friendly_name: Washer Energy
-      hidden: true
     sensor.washer_switch_power:
       friendly_name: Washer Power
     sensor.washer_switch_previous_reading:
       friendly_name: Washer Previous Energy
-      hidden: true
     sensor.washer_switch_previous_reading_2:
       friendly_name: Washer Previous Power
-      hidden: true
     sensor.washer_switch_voltage:
       friendly_name: Washer Voltage
-      hidden: true
 
     switch.washer_switch_switch:
       friendly_name: Washer
@@ -131,21 +127,16 @@ homeassistant:
 
     sensor.dryer_switch_current:
       friendly_name: Dryer Current
-      hidden: true
     sensor.dryer_switch_energy:
       friendly_name: Dryer Energy
-      hidden: true
     sensor.dryer_switch_power:
       friendly_name: Dryer Power
     sensor.dryer_switch_previous_reading:
       friendly_name: Dryer Previous Energy
-      hidden: true
     sensor.dryer_switch_previous_reading_2:
       friendly_name: Dryer Previous Power
-      hidden: true
     sensor.dryer_switch_voltage:
       friendly_name: Dryer Voltage
-      hidden: true
 
     switch.dryer_switch_switch:
       friendly_name: Dryer

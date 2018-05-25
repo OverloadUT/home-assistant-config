@@ -7,39 +7,71 @@ emulated_hue:
 
 homeassistant:
   customize:
+    switch.movie_lights:
+      emulated_hue_hidden: false
+      homebridge_visible: true
+
     light.tv_backlight:
       emulated_hue_hidden: false
+      homebridge_visible: true
       emulated_hue_name: HT Backlight
+
+    switch.christmas_tree:
+      emulated_hue_hidden: false
+      homebridge_visible: true
 
     media_player.home_theater:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     input_boolean.sleep_time:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.living_room_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
+
+    group.family_room_voice:
+      emulated_hue_hidden: false
+      homebridge_visible: true
+
+    group.outside_voice:
+      emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.kitchen_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.downstairs_bathroom_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.entryway_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.garage_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
+
+    switch.carport_lights:
+      emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.upstairs_hall_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.nursery_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.master_bedroom_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true
 
     group.master_bathroom_voice:
       emulated_hue_hidden: false
+      homebridge_visible: true

@@ -5,6 +5,7 @@
 # Recorder for the history and logbook
 recorder:
   db_url: !secret recorder_db_url
+  purge_interval: 0
   exclude:
     entities:
       - sensor.water_boiler_switch_power
@@ -22,3 +23,12 @@ logbook:
     domains:
       - sensor
       - group
+
+influxdb:
+  host: 192.168.0.10
+  tags_attributes:
+    - friendly_name
+    - name
+    - device_class
+    - parent_entity_id
+    - node_id

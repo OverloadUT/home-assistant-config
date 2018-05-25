@@ -18,6 +18,10 @@ notify:
     gcm_api_key: !secret html5_gcm_api_key
     gcm_sender_id: !secret html5_gcm_sender_id
 
+  - name: Shield TV
+    platform: nfandroidtv
+    host: 192.168.0.31
+
   - name: Emergency
     platform: group
     services:
@@ -25,6 +29,13 @@ notify:
       - service: ios_cailin
       - service: ios_greg
       - service: ios_kim
+
+  - name: Parents
+    platform: group
+    services:
+      - service: html5
+      - service: ios_cailin
+      - service: ios_greg
 
   - name: Greg
     platform: group

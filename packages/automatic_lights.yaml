@@ -1,0 +1,38 @@
+
+automation:
+  - alias: Christmas Lights On at Sunset
+    trigger:
+      platform: sun
+      event: sunset
+    action:
+      service: homeassistant.turn_on
+      entity_id: switch.christmas_lights
+
+  - alias: Christmas Tree On in Morning
+    trigger:
+      platform: time
+      at: '06:00:00'
+    action:
+      service: homeassistant.turn_on
+      entity_id: switch.christmas_tree
+
+  - alias: Christmas Lights Off at Night
+    trigger:
+      platform: time
+      at: '00:00:00'
+    action:
+      service: homeassistant.turn_off
+      entity_id:
+        - switch.christmas_lights
+        - switch.christmas_tree
+
+  - alias: Carport Lights Timer
+    trigger:
+      platform: state
+      entity_id: switch.carport_lights
+      to: 'on'
+      for:
+        minutes: 15
+    action:
+      service: homeassistant.turn_off
+      entity_id: switch.carport_lights

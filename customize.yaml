@@ -1,0 +1,52 @@
+binary_sensor.nursery_door:
+  device_class: door
+binary_sensor.garage_interior_door:
+  device_class: door
+binary_sensor.front_door:
+  device_class: door
+binary_sensor.bedroom_door:
+  device_class: door
+binary_sensor.french_doors:
+  device_class: door
+binary_sensor.carport_door:
+  device_class: door
+switch.space_heater:
+  icon: mdi:fire
+switch.downstairs_bath_light_and_fan:
+  icon: mdi:fan
+switch.master_bathroom_fan:
+  icon: mdi:fan
+light.nursery_floor_lamp:
+  icon: mdi:lamp
+light.bedroom_remotelinc__a:
+  hidden: true
+light.bedroom_remotelinc__b:
+  hidden: true
+light.bedroom_remotelinc__c:
+  hidden: true
+light.bedroom_remotelinc__d:
+  hidden: true
+light.downstairs_hall_lights_slave:
+  hidden: true
+light.entry_table_lamp:
+  hidden: true
+light.family_room_floor_lamp:
+  hidden: true
+light.hdmi_switcher_input_1:
+  hidden: true
+light.hdmi_switcher_input_2:
+  hidden: true
+light.lr_track_lights_front_slave:
+  hidden: true
+light.mbr_keypad_a__corner_lamp:
+  hidden: true
+light.mbr_keypad_b__bath_vanity:
+  hidden: true
+light.mbr_keypad_c__dim_lights:
+  hidden: true
+light.mbr_keypad_d__all_off:
+  hidden: true
+light.mbr_keypad_main:
+  hidden: true
+binary_sensor.garage_door:
+  device_class: garage_door

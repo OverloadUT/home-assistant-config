@@ -9,6 +9,19 @@ input_boolean:
     icon: mdi:sleep
 
 automation:
+  - alias: Finn Out of Bed Alarm
+    trigger:
+      platform: state
+      entity_id: sensor.finns_room_motion_detected
+      to: 'True'
+    action:
+      - service: notify.parents
+        data:
+          title: 'Motion detected!'
+          message: "Finn is out of bed"
+      - service: homeassistant.turn_on
+        entity_id: light.master_bedroom_wall_lamps
+
   - alias: Bed Time Activate
     trigger:
       platform: state
